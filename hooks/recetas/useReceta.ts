@@ -7,6 +7,8 @@ import { Producto } from "@/types/receta";
 import { fetcherAdapter } from "@/config/apiDb.adapter";
 import { sendMessage } from "@/components/ToastCustom";
 import * as UseCases from "@/core/use-cases";
+import { useRouter } from "expo-router";
+import { useModalStore } from "@/store/modal-store";
 
 export const useReceta = () => {
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,10 @@ export const useReceta = () => {
   const recetas = recetaStore((state) => state.recetas);
   const obetenerRecetas = recetaStore((state) => state.obetenerRecetas);
   const createReceta = recetaStore((state) => state.createReceta);
-  const navigation = useNavigation();
+  const closeModalCreateRecipes = useModalStore(
+    (state) => state.closeModalCreateRecipes
+  );
+  const router = useRouter();
 
   const [receta, setReceta] = useState<Receta>({
     nombre: "",
@@ -52,7 +57,8 @@ export const useReceta = () => {
       setIsAgregate(false);
 
       createReceta(res);
-      navigation.navigate("CategoryScreen");
+      closeModalCreateRecipes();
+
       sendMessage("Receta", "Creada con éxito", "success");
 
       setLoading(false);

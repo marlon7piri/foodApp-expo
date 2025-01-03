@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform, Text, Pressable } from 'react-native';
+import { Image, StyleSheet, Platform, Text, Pressable, View } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -11,11 +11,15 @@ import { categoryStore } from '@/store/category.store';
 import { authStore } from '@/store/auth.store';
 import { Stack } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useModalStore } from '@/store/modal-store';
+import Button from '@/components/Button';
+import { ModalCategory } from '@/components/ModalCategory';
 
 export default function HomeScreen() {
 
   const logout = authStore(state => state.logout)
   const user = authStore(state => state.user)
+  const openModalCategory = useModalStore(state => state.openModalCategory)
 
 
   const category = categoryStore(state => state.category)
@@ -46,13 +50,13 @@ export default function HomeScreen() {
 
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Categorias</ThemedText>
-        <Pressable onPress={logout}>
-          <Ionicons name='log-out' size={24} />
-        </Pressable>
+        <Button text='Crear' onPress={openModalCategory} />
       </ThemedView>
 
       <CustomFlatlist items={category} />
-
+      <View>
+        <ModalCategory />
+      </View>
     </ParallaxScrollView>
 
   );
@@ -62,6 +66,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: 8,
   },
   stepContainer: {
