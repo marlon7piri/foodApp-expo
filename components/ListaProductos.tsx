@@ -7,6 +7,7 @@ import { productStore } from '@/store/product.store';
 import { cartStore } from '@/store/cart.store';
 import { Producto } from '@/config/infrastructure/entities/productos';
 import { Ionicons } from '@expo/vector-icons';
+import { useProducto } from '@/hooks/productos/useProducto';
 
 interface Props {
     item: Producto[];
@@ -15,9 +16,8 @@ interface Props {
 export const ListaProductos = ({ item }: Props) => {
     const eliminarProducto = productStore(state => state.eliminarProducto);
     const agregarAlCarrito = cartStore(state => state.agregarAlCarrito);
+    const { loading } = useProducto()
 
-    // Aquí simulas el estado de carga
-    const { loading } = { loading: false };
 
     if (loading) {
         return (

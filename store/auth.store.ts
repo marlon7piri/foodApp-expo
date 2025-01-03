@@ -40,6 +40,7 @@ export const authStore = create<authProps>()((set, get) => ({
   },
   logout: async () => {
     await AsyncStorage.removeItem("tokenInfo");
+    console.log(get().token);
     set((state) => ({
       token: "",
     }));

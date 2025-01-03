@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Slot, Stack, useRouter, useSegments } from 'expo-router';
+import { router, Slot, Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
@@ -8,7 +8,6 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { authStore } from '@/store/auth.store';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -17,25 +16,29 @@ SplashScreen.preventAutoHideAsync();
 
 const InitialLayout = () => {
   const token = authStore(state => state.token)
+  const isLoggeIn = authStore(state => state.isLoggeIn)
   const segments = useSegments()
   const router = useRouter()
 
   useEffect(() => {
-    console.log({ token })
-    const inTabsGroup = segments[0] === '(auth)'
 
-    if (token && !inTabsGroup) {
-      router.replace('/(auth)')
-    } else if (!token) {
+    isLoggeIn()
+
+    if (!token) {
       router.replace('/login')
+    } else {
+      router.replace('/(auth)/inventory')
+
     }
   }, [token])
+
   return <Slot />
 }
 
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+
 
 
 
@@ -51,10 +54,10 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
+
   if (!loaded) {
     return null;
   }
-
 
 
 

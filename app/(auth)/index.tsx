@@ -51,6 +51,7 @@ export default function HomeScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Categorias</ThemedText>
         <Button text='Crear' onPress={openModalCategory} />
+        <Button text='Logout' onPress={logout} />
       </ThemedView>
 
       <CustomFlatlist items={category} />
