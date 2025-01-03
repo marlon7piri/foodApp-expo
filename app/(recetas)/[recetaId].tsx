@@ -1,5 +1,5 @@
 import { View, Text, FlatList, ScrollView, Pressable } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import CustomView from '@/components/CustomView'
 import Subtitle from '@/components/Subtitle'
@@ -7,19 +7,25 @@ import TheTitle from '@/components/TheTitle'
 import { Link, useLocalSearchParams } from 'expo-router'
 import { colors } from '@/theme/theme'
 import { BackIcon } from '@/components/Icons'
+import { useReceta } from '@/hooks/recetas/useReceta'
 
 export default function DetailsRecipes() {
   const params = useLocalSearchParams()
+  const { loadRecetaById, recetaById } = useReceta()
 
-  const { id, nombre, descripcion, productos } = params
+  const { recetaId } = params
 
-  console.log({ nombre })
+  useEffect(() => {
+    loadRecetaById(recetaId)
+  }, [recetaId])
 
+
+  console.log(recetaById)
   return (
 
     <CustomView >
 
-      <TheTitle title={nombre} />
+      <TheTitle title={recetaById?.nombre} />
 
       <View >
 
@@ -40,12 +46,13 @@ export default function DetailsRecipes() {
           </Link>
         </View>
 
-        <FlatList data={productos}
-          keyExtractor={productos?.id}
+        <FlatList data={recetaById?.productos}
+          keyExtractor={recetaById?.productos?._id}
           renderItem={({ item, index }) => (
             <View>
               <Text>{item?.producto?.nombre}</Text>
               <Text>{item?.cantidad}</Text>
+
 
 
             </View>
@@ -53,8 +60,8 @@ export default function DetailsRecipes() {
       </View>
       <Subtitle text="Preparacion" />
       <ScrollView>
+        <Text>{recetaById?.descripcion}</Text>
 
-        <Text>{descripcion}</Text>
       </ScrollView>
     </CustomView>
 

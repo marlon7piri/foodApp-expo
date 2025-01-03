@@ -36,7 +36,7 @@ export default function CustomFlatListRecipes({ recipes }: PropsFlatlist) {
       horizontal={true}
       pagingEnabled={true}
       ItemSeparatorComponent={() => <Separator />}
-
+      keyExtractor={item => item._id}
       showsHorizontalScrollIndicator={false}
       renderItem={({ item, index }) => (
 
@@ -44,7 +44,7 @@ export default function CustomFlatListRecipes({ recipes }: PropsFlatlist) {
         <Pressable style={[styles.container,
         { backgroundColor: colors.cardColor }
         ]}
-          onPress={() => router.replace(`/(recetas)/${item}`)}>
+          onPress={() => router.replace(`/(recetas)/${item._id}`)}>
           <Ionicons name='library-outline' size={22} color={colors.complementary} />
           <Text>{item.nombre}</Text>
 

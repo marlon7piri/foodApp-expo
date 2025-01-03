@@ -3,20 +3,15 @@ import type { Receta } from "@/config/infrastructure/entities/receta";
 import { RecetaMapper } from "@/config/infrastructure/mapper/receta.mapper";
 import type { RecetaResponse } from "@/types/receta";
 
-export const RecetasUseCases = async (
+export const RecetaByIdUseCases = async (
   fetcher: HttpAdapter,
   userId: string
-): Promise<Receta[]> => {
+): Promise<Receta> => {
   try {
-    const response = await fetcher.get<RecetaResponse>(
-      `/recetas?userId=${userId}`
-    );
-    const receta = response.data.map((res) =>
-      RecetaMapper.fromRecetetaResponseToReceta(res)
-    );
+    const response = await fetcher.get<RecetaResponse>(`/recetas/${userId}`);
 
-    return receta;
+    return response.data;
   } catch (error) {
-    throw new Error("Error fetching recetas");
+    throw new Error("Error fetching receta by id");
   }
 };

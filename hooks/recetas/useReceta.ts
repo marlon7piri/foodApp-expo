@@ -13,6 +13,7 @@ import { useModalStore } from "@/store/modal-store";
 export const useReceta = () => {
   const [loading, setLoading] = useState(false);
   const [isAgregate, setIsAgregate] = useState(false);
+  const [recetaById, setRecetaById] = useState(null);
   const user = authStore((state) => state.user);
   const recetas = recetaStore((state) => state.recetas);
   const obetenerRecetas = recetaStore((state) => state.obetenerRecetas);
@@ -38,6 +39,10 @@ export const useReceta = () => {
     const recetas = await UseCases.RecetasUseCases(fetcherAdapter, user._id);
     obetenerRecetas(recetas);
   };
+  const loadRecetaById = async (id: string) => {
+    const res = await UseCases.RecetaByIdUseCases(fetcherAdapter, id);
+    setRecetaById(res);
+  };
 
   const crearReceta = async () => {
     const newReceta: Receta = {
@@ -56,6 +61,7 @@ export const useReceta = () => {
       setProductoSelected([]);
       setIsAgregate(false);
 
+      console.log(res);
       createReceta(res);
       closeModalCreateRecipes();
 
@@ -97,5 +103,7 @@ export const useReceta = () => {
     isAgregate,
     loadReceta,
     setIsAgregate,
+    loadRecetaById,
+    recetaById,
   };
 };
