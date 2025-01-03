@@ -46,7 +46,9 @@ export const ListaCompra = () => {
                 data={compras}
                 keyExtractor={compras._id}
                 renderItem={({ item }) => (
-                    <Pressable style={styles.item} onPress={() => navigation.push('/')} >
+                    <Pressable style={styles.item} onPress={() => navigation.navigate(`/(compras)/${item._id}`, {
+                        compras: item.productos
+                    })} >
                         <Ionicons name='calendar-number-outline' size={20} color={colors.complementary} />
 
                         <Text style={styles.title}>{convertirFecha(item?.fecha)}</Text>

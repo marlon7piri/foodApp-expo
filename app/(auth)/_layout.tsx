@@ -58,6 +58,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <Ionicons name="cart" size={28} color={color} />,
         }}
       />
+
     </Tabs>
   );
 }
