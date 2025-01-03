@@ -1,4 +1,4 @@
-import { View, Text, FlatList, ScrollView, Pressable } from 'react-native'
+import { View, Text, FlatList, ScrollView, Pressable, StyleSheet, ActivityIndicator } from 'react-native'
 import React, { useEffect } from 'react'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import CustomView from '@/components/CustomView'
@@ -20,7 +20,14 @@ export default function DetailsRecipes() {
   }, [recetaId])
 
 
-  console.log(recetaById)
+  if (!recetaById) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', marginTop: 30 }}>
+        <ActivityIndicator size="large" color={colors.complementary} />
+      </View>
+    );
+  }
+
   return (
 
     <CustomView >
@@ -30,7 +37,7 @@ export default function DetailsRecipes() {
       <View >
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Subtitle text="Ingredientes" />
+          <Subtitle text="Ingredientes" style={{ fontWeight: '500', fontSize: 24 }} />
           <Link href={'/recetas'} asChild>
             <Pressable style={{
               backgroundColor: colors.cardColor,
@@ -47,23 +54,45 @@ export default function DetailsRecipes() {
         </View>
 
         <FlatList data={recetaById?.productos}
-          keyExtractor={recetaById?.productos?._id}
+          keyExtractor={item => item._id}
           renderItem={({ item, index }) => (
-            <View>
-              <Text>{item?.producto?.nombre}</Text>
-              <Text>{item?.cantidad}</Text>
+            <View style={styles.containerItem}>
+              <Text style={styles.producto}>{item?.producto?.nombre} -</Text>
+              <Text style={styles.cantidad}>{item?.cantidad}</Text>
+              <Text style={styles.producto}>{item?.unidad}</Text>
 
 
 
             </View>
           )} />
       </View>
-      <Subtitle text="Preparacion" />
+      <Subtitle text="Preparacion:" style={{ fontWeight: '900', fontSize: 28 }} />
       <ScrollView>
-        <Text>{recetaById?.descripcion}</Text>
+        <Text style={styles.recetaDescripcion}>{recetaById?.descripcion}</Text>
 
       </ScrollView>
     </CustomView>
 
   )
 }
+
+const styles = StyleSheet.create({
+  containerItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4
+  },
+  producto: {
+    fontSize: 20,
+    fontWeight: '700'
+
+  },
+  cantidad: {
+    fontSize: 18,
+    fontWeight: '700'
+
+  },
+  recetaDescripcion: {
+    fontSize: 18
+  }
+})

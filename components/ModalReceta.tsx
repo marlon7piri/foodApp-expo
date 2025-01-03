@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomModal from '@/components/CustomModal'
 import Subtitle from '@/components/Subtitle'
 import { useModalStore } from '@/store/modal-store'
@@ -14,6 +14,8 @@ import { useReceta } from '@/hooks/recetas/useReceta'
 import { Producto } from '@/config/infrastructure/entities/productos'
 import { colors } from '@/theme/theme'
 import { Ionicons } from '@expo/vector-icons'
+import { useProducto } from '@/hooks/productos/useProducto'
+import { AddCircle, RemoveCircle } from './Icons'
 
 
 
@@ -28,7 +30,9 @@ export const ModalReceta = () => {
 
     const [search, setSearch] = useState('')
 
-
+    useEffect(() => {
+        setProductfilter(productos)
+    }, [productos])
 
     const handleSubmit = async () => {
 
@@ -60,11 +64,11 @@ export const ModalReceta = () => {
     }
 
 
-    const handlerSelectProducto = (id: string, nombre: string) => {
+    const handlerSelectProducto = (id: string, nombre: string, unidad: string) => {
 
         const found = productoSelected.find((e) => e.id === id)
         if (!found) {
-            setProductoSelected([...productoSelected, { id: id, cantidad: 0, nombre: nombre }])
+            setProductoSelected([...productoSelected, { id: id, cantidad: 0, nombre: nombre, unidad }])
 
         } else {
             return
@@ -114,6 +118,12 @@ export const ModalReceta = () => {
 
                             <View>
                                 <ScrollView
+                                    style={{
+                                        flex: 1,
+                                        maxHeight: 200,
+                                        padding: 10,
+
+                                    }}
 
                                 >
                                     {
@@ -127,15 +137,29 @@ export const ModalReceta = () => {
                                                     justifyContent: 'space-between',
                                                     flexDirection: 'row',
                                                     gap: 5,
-                                                    marginTop: 3
-                                                }}>
-                                                    <Text>
-                                                        {producto.nombre}
-                                                    </Text>
-                                                    <TouchableOpacity onPress={() => handlerSelectProducto(producto.id, producto.nombre)} style={{ backgroundColor: colors.secundary, borderRadius: 50 }} >
-                                                        <Ionicons name='add-circle-outline' size={28} color={colors.background} />
+                                                    marginTop: 3,
 
-                                                    </TouchableOpacity>
+                                                }}>
+                                                    <View style={{
+
+                                                        flexDirection: 'row',
+                                                        gap: 4,
+
+
+                                                    }}>
+                                                        <Text >
+                                                            {producto.nombre}
+                                                        </Text>
+                                                        <Text>
+                                                            -{producto.unidad_medida}
+                                                        </Text>
+                                                    </View>
+                                                    <View style={{ marginRight: 20 }}>
+                                                        <TouchableOpacity onPress={() => handlerSelectProducto(producto.id, producto.nombre, producto.unidad_medida)} style={{ backgroundColor: colors.secundary, borderRadius: 50 }} >
+                                                            <AddCircle />
+                                                        </TouchableOpacity>
+                                                    </View>
+
 
                                                 </View>
 
@@ -170,13 +194,13 @@ export const ModalReceta = () => {
 
                                             }}>
                                                 <TouchableOpacity onPress={() => disminuirCantidad(e.id)} style={{ backgroundColor: colors.secundary, borderRadius: 50 }} >
-                                                    <Ionicons name='remove-outline' size={28} />
 
+                                                    <RemoveCircle />
                                                 </TouchableOpacity>
 
-                                                <Text>{e.cantidad}</Text>
+                                                <Text>{e.cantidad}{e?.unidad == 'unidad' ? 'und' : e?.unidad}</Text>
                                                 <TouchableOpacity onPress={() => aumentarCantidad(e.id)} style={{ backgroundColor: colors.secundary, borderRadius: 50 }} >
-                                                    <Ionicons name='add' size={28} />
+                                                    <AddCircle />
 
                                                 </TouchableOpacity>
 

@@ -16,6 +16,8 @@ const initialState: Producto = {
   stock_min: 1,
   precio_compra: 0,
   unidad_medida: "",
+  costo: 0,
+  presentacion_por_unidad: 0,
   idCategory: "",
 };
 export const useProducto = () => {
@@ -45,6 +47,8 @@ export const useProducto = () => {
     idCategory: "",
     precio_compra: 0,
     unidad_medida: "",
+    costo: 0,
+    presentacion_por_unidad: 0,
     userId: "",
   });
   const [categoryselected, setCategorySelected] = useState("");
@@ -65,6 +69,7 @@ export const useProducto = () => {
     agregarProducto(product);
     setProducto(initialState);
     closeModalProducto();
+    getProductoController();
     sendMessage("Producto", "Creado con exito", "success");
   };
 

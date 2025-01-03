@@ -10,7 +10,7 @@ import { Pressable } from 'react-native';
 import { useCompras } from '@/hooks/compras/useCompras';
 import { convertirFecha } from '@/utils/convertirFecha';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -44,25 +44,27 @@ export const ListaCompra = () => {
             <FlatList
 
                 data={compras}
-                keyExtractor={compras._id}
+                keyExtractor={item => item?._id}
                 renderItem={({ item }) => (
-                    <Pressable style={styles.item} onPress={() => navigation.navigate(`/(compras)/${item._id}`, {
-                        compras: item.productos
-                    })} >
-                        <Ionicons name='calendar-number-outline' size={20} color={colors.complementary} />
 
-                        <Text style={styles.title}>{convertirFecha(item?.fecha)}</Text>
-                        <Ionicons name='checkmark-circle' size={20} color={item?.estado === 'pendiente' ? colors.dangerColor : 'green'} />
+                    <Link href={`/(compras)/${item._id}`} asChild>
 
-                        <Text style={styles.title}>{item?.estado}</Text>
+                        <Pressable style={styles.item}>
+                            <Ionicons name='calendar-number-outline' size={20} color={colors.complementary} />
 
-                        <Pressable onPress={() => quitarDelCarrito(item._id)} style={styles.botonContainer}>
-                            <Ionicons name='trash' size={20} color={'red'} />
+                            <Text style={styles.title}>{convertirFecha(item?.fecha)}</Text>
+                            <Ionicons name='checkmark-circle' size={20} color={item?.estado === 'pendiente' ? colors.dangerColor : 'green'} />
+
+                            <Text style={styles.title}>{item?.estado}</Text>
+
+                            <Pressable onPress={() => quitarDelCarrito(item._id)} style={styles.botonContainer}>
+                                <Ionicons name='trash' size={20} color={'red'} />
+
+                            </Pressable>
+
 
                         </Pressable>
-
-
-                    </Pressable>
+                    </Link>
                 )}
             />
         </View>

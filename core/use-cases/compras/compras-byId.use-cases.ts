@@ -6,12 +6,12 @@ import {
   Compras,
 } from "@/config/infrastructure/entities/compras";
 
-export const comprasUseCases = async (
+export const comprasByIdUseCases = async (
   fetcher: HttpAdapter,
-  userId: string
-): Promise<Compras[]> => {
+  id: string
+): Promise<Compras> => {
   try {
-    const response = await fetcher.get<ComprasResponse>(`/compras/${userId}`);
+    const response = await fetcher.get<ComprasResponse>(`/compras/byId/${id}`);
 
     return response.data;
   } catch (error) {

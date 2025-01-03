@@ -12,11 +12,17 @@ import Button from '@/components/Button';
 import { useModalStore } from '@/store/modal-store';
 import { ModalCategory } from '@/components/ModalCategory';
 import { ModalReceta } from '@/components/ModalReceta';
+import { useEffect } from 'react';
+import { useProducto } from '@/hooks/productos/useProducto';
 
 export default function RecetasScreen() {
   const { recetas } = useReceta()
+  const { getProductoController } = useProducto()
   const openModalCreateRecipes = useModalStore(state => state.openModalCreateRecipes)
 
+  useEffect(() => {
+    getProductoController();
+  }, []);
 
   return (
     <ParallaxScrollView

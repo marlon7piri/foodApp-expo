@@ -19,19 +19,13 @@ const ModalProducto = () => {
     const isopenModalProducto = useModalStore().isopenModalProducto
     const closeModalProducto = useModalStore().closeModalProducto
     const categoryall = categoryStore(state => state.category)
-    const [open, setOpen] = useState(false);
-    const [openCategoryDDW, setOpenCategoryDDW] = useState(false);
     const [items, setItems] = useState([
         { label: 'Unidad', value: 'unidad' },
         { label: 'KG', value: 'kg' },
-        { label: 'LB', value: 'Lb' },
         { label: 'LT', value: 'Lt' },
     ]);
 
-    const handlerCategory = (itemvalue) => {
 
-        setCategorySelected(itemvalue)
-    }
 
 
     const categorias = categoryall.map((e) => ({ value: e.id, label: e.nombre }))
@@ -62,6 +56,15 @@ const ModalProducto = () => {
                         />
                     </View>
                     <Separator />
+                    <View>
+                        <InputCustom
+                            placeholder='Presentacion por unidad'
+                            value={producto.presentacion_por_unidad} onChange={(text: number) => setProducto({ ...producto, presentacion_por_unidad: text })}
+                            type='numeric'
+                        />
+                    </View>
+                    <Separator />
+
                     <View style={styles.container}>
 
                         <Text>Seleccione la unidad de medida</Text>
@@ -82,7 +85,7 @@ const ModalProducto = () => {
                         <InputCustom
                             placeholder='Cantidad en Inventario'
                             value={producto.stock} onChange={(numero: number) => setProducto({ ...producto, stock: numero })}
-                            type='number-pad'
+                            type='numeric'
                         />
                     </View>
                     <Separator />

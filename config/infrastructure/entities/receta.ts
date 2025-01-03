@@ -9,6 +9,12 @@ export interface Receta {
   _id?: string;
   nombre: string;
   descripcion: string;
-  productos: Producto[];
+  productos: Productos[];
   userId: string | null;
+}
+
+interface Productos {
+  producto: Producto;
+  unidad: string;
+  cantidad: number;
 }

@@ -62,7 +62,7 @@ export default function InventoryScreen() {
         <TextInput placeholder='Buscar productos'
           value={search} onChangeText={hanlderFilter}
           placeholderTextColor={colors.complementary}
-          style={{ width: '90%', margin: 'auto', marginBottom: 10, color: colors.complementary, borderColor: colors.complementary, borderWidth: 1, padding: 10, borderRadius: 5 }} />
+          style={{ width: '100%', margin: 'auto', marginBottom: 10, color: colors.complementary, borderColor: colors.complementary, borderWidth: 1, padding: 10, borderRadius: 5 }} />
 
       </View>
       <View style={{ flex: 1 }}>

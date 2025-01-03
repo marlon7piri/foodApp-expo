@@ -8,6 +8,7 @@ import { cartStore } from '@/store/cart.store';
 import { Producto } from '@/config/infrastructure/entities/productos';
 import { Ionicons } from '@expo/vector-icons';
 import { useProducto } from '@/hooks/productos/useProducto';
+import { BagIcon, UsdIcon } from './Icons';
 
 interface Props {
     item: Producto[];
@@ -27,10 +28,17 @@ export const ListaProductos = ({ item }: Props) => {
         );
     }
 
-
     return (
         <View>
             <FlatList
+
+                ListHeaderComponent={() => (
+                    <View style={{ flexDirection: 'row', padding: 10, backgroundColor: colors.secundary, borderRadius: 5, marginBottom: 5 }}>
+                        <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'left', color: colors.background }}>Nombre</Text>
+                        <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'center', color: colors.background }}>Precio</Text>
+                        <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'center', color: colors.background }}>Presentacion x und</Text>
+                    </View>
+                )}
                 data={item}
                 keyExtractor={item => item.id}
                 showsVerticalScrollIndicator={false}
@@ -38,27 +46,19 @@ export const ListaProductos = ({ item }: Props) => {
                 contentContainerStyle={{ paddingBottom: 20 }} // Espacio inferior
                 renderItem={({ item }) => (
 
-                    <View style={styles.card}>
-                        <View style={styles.containerContent}>
-                            <View style={styles.containerStock}>
-                                <Text style={styles.title}>{item.nombre}</Text>
-                            </View>
-                            <View style={styles.containerStock}>
-                                <Ionicons name="logo-dropbox" size={24} color={colors.secundary} />
-                                <Text style={styles.title}>{item.stock}</Text>
-                                <Ionicons name="alert-circle-outline" size={24} color={colors.dangerColor} />
-                                <Text style={styles.title}>{item.stock_min}</Text>
-                            </View>
-                            <View style={styles.containerStock}>
-                                <Pressable onPress={() => eliminarProducto(item.id)} style={styles.botonContainer}>
-                                    <Ionicons name="trash" size={20} color="red" />
-                                </Pressable>
-                                {/*  <Pressable onPress={() => agregarAlCarrito(item)} style={styles.botonContainer}>
-                                    <Ionicons name="cart" size={20} color="green" />
-                                </Pressable> */}
-                            </View>
-                        </View>
+
+
+
+                    <View style={{ flexDirection: 'row', padding: 10, backgroundColor: colors.cardColor, borderRadius: 5, marginBottom: 5 }}>
+
+                        <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'left', color: colors.complementary }}>{item.nombre}</Text>
+
+                        <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'center', color: colors.complementary }}>{item.precio_compra}</Text>
+                        <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'right', color: colors.complementary }}>{item.presentacion_por_unidad}</Text>
                     </View>
+
+
+
                 )}
                 ListFooterComponent={
                     <View style={{ padding: 10 }}>

@@ -7,4 +7,5 @@ export * from "./recetas/recetas.use-case";
 export * from "./recetas/get-recetaById.use-cases";
 export * from "./recetas/create-receta.use-cases";
 export * from "./compras/compras.use-cases";
+export * from "./compras/compras-byId.use-cases";
 export * from "./compras/create-compra.use-cases";

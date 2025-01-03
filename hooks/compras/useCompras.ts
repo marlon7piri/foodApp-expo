@@ -17,6 +17,8 @@ const initialStateCompras: Compras = {
 export const useCompras = () => {
   const [productosSelected, setProductosSelected] = useState([]);
   const [dateSelected, setDateSelected] = useState("");
+  const [compraById, setCompraById] = useState<Compras>();
+  const [productosCompra, setProductosCompra] = useState<Producto[]>([]);
   const obtenerCompras = comprasStore((state) => state.obtenerCompras);
   const crearCompras = comprasStore((state) => state.crearCompras);
   const compras = comprasStore((state) => state.compras);
@@ -37,6 +39,18 @@ export const useCompras = () => {
     const res = await UseCases.comprasUseCases(fetcherAdapter, user?._id);
 
     obtenerCompras(res);
+
+    setLoading(false);
+  };
+  const loadCompraById = async (id: string) => {
+    setLoading(true);
+    const res = await UseCases.comprasByIdUseCases(fetcherAdapter, id);
+    setCompraById(res);
+
+    setProductosCompra(() => {
+      return res?.productos.map((e) => ({ ...e, cantidad: 1 }));
+    });
+    console.log(productosCompra);
     setLoading(false);
   };
   const crearListaCompra = async () => {
@@ -71,5 +85,9 @@ export const useCompras = () => {
     setProductosSelected,
     dateSelected,
     setDateSelected,
+    loadCompraById,
+    compraById,
+    productosCompra,
+    setProductosCompra,
   };
 };

@@ -1,4 +1,4 @@
-import { RecetaDb, RecetaResponse } from "@/src/types/receta";
+import { RecetaDb, RecetaResponse } from "@/types/receta";
 import type { Receta } from "../entities/receta";
 
 export class RecetaMapper {
@@ -8,6 +8,7 @@ export class RecetaMapper {
       nombre: receta.nombre,
       descripcion: receta.descripcion,
       productos: receta.productos,
+      userId: receta.userId,
     };
   }
 }
