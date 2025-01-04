@@ -90,7 +90,7 @@ export const ModalListaCompra = () => {
                     }}>
                         <Subtitle text={`Crear Lista de Compra:`} />
 
-                        <View>
+                        <View style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
                             <CalendarPicker setState={setDateSelected} />
                             <Text style={{ ...styles.title, marginBottom: 20 }}>Fecha cuando comprará: {dateSelected ? convertirFecha(dateSelected) : ''}</Text>
 

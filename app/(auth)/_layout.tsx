@@ -1,4 +1,4 @@
-import { Tabs } from 'expo-router';
+import { Stack, Tabs } from 'expo-router';
 import React from 'react';
 import { Platform, Pressable } from 'react-native';
 
@@ -56,6 +56,17 @@ export default function TabLayout() {
             </Pressable>),
 
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="tareas"
+
+        options={{
+          title: 'Tareas',
+          headerShown: true,
+
+
+          tabBarIcon: ({ color }) => <Ionicons name="albums" size={24} color={color} />
         }}
       />
       <Tabs.Screen

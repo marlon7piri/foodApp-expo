@@ -29,11 +29,11 @@ export default function CustomFlatlist({ items }: PropsFlatlist) {
       data={items}
       horizontal
       ItemSeparatorComponent={() => <Separator />}
-
+      keyExtractor={item => item.id}
       showsHorizontalScrollIndicator={false}
       renderItem={({ item, index }) => (
 
-        <Link href={`/(category)/${item.id}`} asChild>
+        <Link href={`/category/${item.id}`} asChild>
           <Pressable style={styles.container}>
 
             <Text style={styles.textButton}>{item.nombre}</Text>

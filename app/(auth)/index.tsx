@@ -47,6 +47,7 @@ export default function HomeScreen() {
         />
       }
     >
+
       <ThemedView style={styles.titleContainer}>
         <ThemedText style={{ fontWeight: '900', fontSize: 38, padding: 10 }} type="title">Hola👋   {user?.name}</ThemedText>
       </ThemedView>

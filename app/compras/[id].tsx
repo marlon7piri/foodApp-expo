@@ -21,7 +21,6 @@ export default function DetailsListaCompras() {
 
 
 
-  console.log(id)
   useEffect(() => {
     loadCompraById(id)
 

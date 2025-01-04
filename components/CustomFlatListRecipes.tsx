@@ -44,7 +44,7 @@ export default function CustomFlatListRecipes({ recipes }: PropsFlatlist) {
         <Pressable style={[styles.container,
         { backgroundColor: colors.cardColor }
         ]}
-          onPress={() => router.replace(`/(recetas)/${item?._id}`)}>
+          onPress={() => router.replace(`/recetasDetalles/${item?._id}`)}>
           <Ionicons name='library-outline' size={22} color={colors.complementary} />
           <Text>{item?.nombre}</Text>
 

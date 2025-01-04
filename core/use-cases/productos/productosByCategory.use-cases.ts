@@ -11,8 +11,6 @@ export const ProductByCategoryUseCases = async (
   const response = await fetcher.get<TypeProductosResponse>(
     `/productosByCategory?idCategory=${idCategory}&userId=${userId}`
   );
-  const productos = response.data.map(
-    ProductoMapper.fromProductResponseToProduct
-  );
-  return productos;
+
+  return response.data;
 };

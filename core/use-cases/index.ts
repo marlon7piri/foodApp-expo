@@ -9,3 +9,6 @@ export * from "./recetas/create-receta.use-cases";
 export * from "./compras/compras.use-cases";
 export * from "./compras/compras-byId.use-cases";
 export * from "./compras/create-compra.use-cases";
+export * from "./tareas/tareas.use-cases";
+export * from "./tareas/create-tarea.use-cases";
+export * from "./tareas/update-tarea.use-cases";

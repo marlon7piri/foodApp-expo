@@ -1,23 +1,17 @@
-import { View, Text, FlatList, ScrollView, StyleSheet, ActivityIndicator, Pressable } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { RouteProp, useRoute } from '@react-navigation/native'
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, Pressable } from 'react-native'
+import React, { useEffect } from 'react'
 import CustomView from '@/components/CustomView'
-import Subtitle from '@/components/Subtitle'
-import TheTitle from '@/components/TheTitle'
 import { useProducto } from '@/hooks/productos/useProducto'
 import { productStore } from '@/store/product.store'
 import { colors } from '@/theme/theme'
 import { Link, useLocalSearchParams, useRouter } from 'expo-router'
 import { Stack } from 'expo-router'
-import MaterialIcon from '@expo/vector-icons/MaterialIcons'
-import { Colors } from '@/constants/Colors'
 import { BackIcon } from '@/components/Icons'
 
 export default function DetailsCategory() {
   const { category } = useLocalSearchParams()
-  const router = useRouter()
 
-  const { getProductoByCategoryController } = useProducto()
+  const { getProductoByCategoryController, categoryById } = useProducto()
   const productosByCategoria = productStore(state => state.productosByCategoria)
 
 
@@ -25,9 +19,7 @@ export default function DetailsCategory() {
     getProductoByCategoryController(category)
   }, [category])
 
-  console.log(productosByCategoria)
-
-  if (!productosByCategoria) {
+  if (!productosByCategoria || !categoryById) {
     return <View style={{ flex: 1, justifyContent: 'flex-start' }}>
       <ActivityIndicator size={'large'} color={colors.background} />
     </View>
@@ -40,20 +32,19 @@ export default function DetailsCategory() {
     <CustomView >
 
       <Stack.Screen options={{
-        headerTransparent: true,
-        headerTitle: 'Mami',
+        headerTransparent: false,
+        headerTitle: '',
 
 
 
 
-        headerRight: undefined
       }} />
 
       <View >
 
 
         <View style={styles.containerSubtitle}>
-          <Text style={{ ...styles.textos, fontSize: 24 }}>Productos:{productosByCategoria?.length}</Text>
+          <Text style={{ ...styles.textos, fontSize: 24 }}>{categoryById?.nombre}: {productosByCategoria?.length}</Text>
 
           <Link href={'/(auth)'} asChild>
             <Pressable >
@@ -73,7 +64,7 @@ export default function DetailsCategory() {
               <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'left', color: colors.background }}>Presentacion x und</Text>
             </View>
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item._id}
           renderItem={({ item, index }) => (
             <View style={styles.contenedor}>
 

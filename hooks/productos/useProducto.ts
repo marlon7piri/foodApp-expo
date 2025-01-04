@@ -52,6 +52,7 @@ export const useProducto = () => {
     userId: "",
   });
   const [categoryselected, setCategorySelected] = useState("");
+  const [categoryById, setCategoryById] = useState();
 
   const handleSubmit = async () => {
     const newProducto: Producto = {
@@ -91,12 +92,13 @@ export const useProducto = () => {
   };
 
   const getProductoByCategoryController = async (idCategory: string) => {
-    const productos = await UseCase.ProductByCategoryUseCases(
+    const res = await UseCase.ProductByCategoryUseCases(
       fetcherAdapter,
       idCategory,
       user?._id
     );
-    obtenerProductoPorCategoria(productos);
+    obtenerProductoPorCategoria(res?.productos);
+    setCategoryById(res?.categoryFound);
   };
 
   return {
@@ -110,5 +112,6 @@ export const useProducto = () => {
     getProductoController,
     getProductoByCategoryController,
     loading,
+    categoryById,
   };
 };
