@@ -1,34 +1,36 @@
-import { create } from 'zustand'
-import { Compras } from '@/src/config/infrastructure/entities/compras'
-
-
+import { create } from "zustand";
+import { Compras } from "@/config/infrastructure/entities/compras";
 
 interface TypeStore {
-    compras: Compras[],
-    obtenerCompras: (comp: Compras[]) => void
-    crearCompras: (newComp: Compras) => void,
-    deleteCategory: (id: string) => void
+  compras: Compras[];
+  total: number;
+  obtenerCompras: (comp: Compras[]) => void;
+  crearCompras: (newComp: Compras) => void;
+  updateTotal: (newComp: number) => void;
+  deleteCategory: (id: string) => void;
 }
 
 export const comprasStore = create<TypeStore>()((set, get) => ({
-    compras: [],
-    obtenerCompras: (comp) => {
-        set(state => ({
-            compras: comp
-        }))
-
-    },
-    crearCompras: (newComp) => {
-        
-        set(state => ({
-            compras: [...state.compras, newComp]
-        }))
-
-    },
-    deleteCategory: (id) => {
-        set(state => ({
-            compras: state.compras.filter(e => e.id !== id)
-        }))
-    }
-
-}))
+  compras: [],
+  total: 0,
+  obtenerCompras: (comp) => {
+    set((state) => ({
+      compras: comp,
+    }));
+  },
+  crearCompras: (newComp) => {
+    set((state) => ({
+      compras: [...state.compras, newComp],
+    }));
+  },
+  deleteCategory: (id) => {
+    set((state) => ({
+      compras: state.compras.filter((e) => e.id !== id),
+    }));
+  },
+  updateTotal: (numero: number) => {
+    set((state) => ({
+      total: numero,
+    }));
+  },
+}));

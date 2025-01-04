@@ -1,11 +1,13 @@
 import { useTareas } from "@/hooks/tareas/useTareas";
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, LayoutAnimation, Platform, UIManager, Pressable, useWindowDimensions, Animated } from "react-native";
-import { ArrowRightIcon, ArrowUpIcon, CheckIcon, SadIcon } from "./Icons";
+import { ArrowRightIcon, ArrowUpIcon, CheckIcon, PersonIcon, RelojIcon, SadIcon } from "./Icons";
 import { useAnimation } from "@/hooks/animations/useAnimation";
 import { colors } from "@/theme/theme";
 import { Tareas } from "@/config/infrastructure/entities/tareas";
 import { transform } from "@babel/core";
+import { convertirFecha } from "@/utils/convertirFecha";
+import { Ionicons } from "@expo/vector-icons";
 
 if (Platform.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -65,7 +67,23 @@ const Accordion = ({ title, children, item }: Props) => {
 
 
       </Pressable>
-      {expanded && <Text style={styles.content}>{children}</Text>}
+      {expanded && <View style={{ flexDirection: 'column' }}>
+
+        <Text style={styles.content}>{children}</Text>
+        <View style={styles.containerInfo}>
+          <View style={styles.containerFecha}>
+            <RelojIcon />
+            <Text style={styles.textos}>{convertirFecha(item.fecha_final)}</Text>
+          </View>
+          <View style={styles.containerFecha}>
+            <PersonIcon />
+
+            <Text style={styles.textos}>{item.de?.name}</Text>
+
+          </View>
+
+        </View>
+      </View>}
 
     </Animated.View>
   )
@@ -90,12 +108,25 @@ const styles = StyleSheet.create({
     padding: 15
   },
   title: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: "600",
   },
   content: {
-    overflow: 'hidden',
+
     padding: 15,
+  },
+  textos: {
+    padding: 10
+  },
+  containerInfo: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  containerFecha: {
+    padding: 5,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
 });
 

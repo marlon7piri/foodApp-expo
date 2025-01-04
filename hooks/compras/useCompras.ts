@@ -48,7 +48,7 @@ export const useCompras = () => {
     setCompraById(res);
 
     setProductosCompra(() => {
-      return res?.productos.map((e) => ({ ...e, cantidad: 1 }));
+      return res?.productos.map((e) => ({ ...e, cantidad: 0 }));
     });
     console.log(productosCompra);
     setLoading(false);

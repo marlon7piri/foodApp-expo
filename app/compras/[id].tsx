@@ -9,6 +9,7 @@ import { AddCircle, BackIcon, RemoveCircle, UsdIcon } from '@/components/Icons'
 import { useCompras } from '@/hooks/compras/useCompras'
 import { Producto } from '@/config/infrastructure/entities/compras'
 import ListaProductosCompra from '@/components/ListaProductosCompra'
+import { comprasStore } from '@/store/compras.store'
 
 
 
@@ -36,8 +37,11 @@ export default function DetailsListaCompras() {
 
   const total = productosCompra?.reduce((acc, obj) => {
     acc += obj.precio_compra * obj.cantidad
+
     return acc
   }, 0)
+
+
 
 
   return (
@@ -63,7 +67,7 @@ export default function DetailsListaCompras() {
 
 
 
-        <ListaProductosCompra item={productosCompra} total={total} />
+        <ListaProductosCompra item={productosCompra} total={total} setProductosCompra={setProductosCompra} />
 
 
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SetStateAction } from 'react'
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import { AddCircle, RemoveCircle } from './Icons'
 import { colors } from '@/theme/theme'
@@ -6,10 +6,42 @@ import { Producto } from '@/config/infrastructure/entities/compras'
 
 
 interface Props {
-  item: Producto[],
-  total: number
+  item: Producto[];
+  total: number;
+  setProductosCompra: () => React.Dispatch<SetStateAction<Producto>>
 }
-const ListaProductosCompra = ({ item, total }: Props) => {
+const ListaProductosCompra = ({ item, total, setProductosCompra }: Props) => {
+
+
+  const aumentarCantidad = (id: string) => {
+    setProductosCompra((prev) =>
+      prev.map((producto) =>
+        producto._id === id
+          ? { ...producto, cantidad: Math.max(0, producto.cantidad + 1) }
+          : producto
+      )
+    );
+
+  }
+
+  const disminuirCantidad = (id: string) => {
+    setProductosCompra((prev: any[]) =>
+
+      prev.map((producto) => {
+
+
+        if (producto._id === id) {
+          if (producto.cantidad == 0) {
+            return { ...producto, cantidad: 0 }
+          } else {
+            return { ...producto, cantidad: producto.cantidad - 1 }
+          }
+        }
+
+      })
+    );
+
+  }
   return (
     <FlatList data={item}
 
@@ -33,12 +65,12 @@ const ListaProductosCompra = ({ item, total }: Props) => {
             <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'left', color: colors.complementary }}>{item?.presentacion_por_unidad}/{item?.unidad_medida}</Text>
           </View>
 
-          <Pressable style={{ backgroundColor: colors.secundary, borderRadius: 50 }}>
+          <Pressable style={{ backgroundColor: colors.secundary, borderRadius: 50 }} onPress={() => disminuirCantidad(item._id)}>
 
             <RemoveCircle />
           </Pressable>
           <Text style={styles.txtUnidad}>{item?.cantidad}</Text>
-          <Pressable style={{ backgroundColor: colors.secundary, borderRadius: 50 }}>
+          <Pressable style={{ backgroundColor: colors.secundary, borderRadius: 50 }} onPress={() => aumentarCantidad(item._id)}>
 
             <AddCircle />
           </Pressable>

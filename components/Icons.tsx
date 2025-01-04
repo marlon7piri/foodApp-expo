@@ -18,3 +18,4 @@ export const PersonIcon = (props: any) => (<Ionicons name="person-circle" size={
 export const ReloadIcon = (props: any) => (<Ionicons name="reload-circle-sharp" size={24} color="black" />)
 export const ArrowUpIcon = (props: any) => (<Ionicons name="chevron-down" size={24} color="black" />)
 export const ArrowRightIcon = (props: any) => (<Ionicons name="chevron-forward" size={24} color="black" />)
+export const RelojIcon = (props: any) => (<Ionicons name="alarm-outline" size={24} color="black" />)
