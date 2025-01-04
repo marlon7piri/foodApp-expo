@@ -16,6 +16,7 @@ export const useAnimation = () => {
 
   function moveUp({
     initialPosition = -200,
+    index = 0,
     duration = 1000,
     easing = Easing.elastic(2),
     toValue = 0,
@@ -24,6 +25,7 @@ export const useAnimation = () => {
     animationTranslate.setValue(initialPosition);
     Animated.timing(animationTranslate, {
       easing: easing,
+      delay: 200,
       duration: duration,
       toValue: toValue,
       useNativeDriver: true,

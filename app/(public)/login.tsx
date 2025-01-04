@@ -105,7 +105,7 @@ export default function Page() {
                   <TextInput
 
                     keyboardType={'visible-password'}
-                    secureTextEntry={show}
+                    secureTextEntry={!show}
                     style={style.inputContainer}
                     value={user.password}
                     onChangeText={(text: string) => setUser({ ...user, password: text })}
@@ -120,8 +120,8 @@ export default function Page() {
 
                 <Separator height={40} />
                 {error && <Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
-                <TouchableOpacity onPress={loginhandler} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20 }} >
-                  <Text style={{ textAlign: 'center' }}>Iniciar Sesion</Text>
+                <TouchableOpacity onPress={loginhandler} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+                  <Text style={{ textAlign: 'center' }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Iniciar Sesion'}</Text>
                 </TouchableOpacity>
 
 

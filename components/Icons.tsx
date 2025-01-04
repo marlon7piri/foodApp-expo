@@ -15,3 +15,6 @@ export const MenuIcon = (props: any) => (<Ionicons name="menu-outline" size={28}
 export const CheckIcon = (props: any) => (<Ionicons name="checkmark-circle" size={24} color="green" />)
 export const SadIcon = (props: any) => (<Ionicons name="sad" size={24} color="red" />)
 export const PersonIcon = (props: any) => (<Ionicons name="person-circle" size={24} color="black" />)
+export const ReloadIcon = (props: any) => (<Ionicons name="reload-circle-sharp" size={24} color="black" />)
+export const ArrowUpIcon = (props: any) => (<Ionicons name="chevron-down" size={24} color="black" />)
+export const ArrowRightIcon = (props: any) => (<Ionicons name="chevron-forward" size={24} color="black" />)

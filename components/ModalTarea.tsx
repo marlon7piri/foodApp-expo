@@ -40,9 +40,26 @@ export const ModalTarea = () => {
         }}>
           <View>
             <InputCustom
+              placeholder='Asunto'
+              value={newTask?.asunto} onChange={(text: string) => setNewTask({ ...newTask, asunto: text })}
+              type='default'
+            />
+          </View>
+          <Separator />
+          <View>
+            <InputCustom
+              isArea
               placeholder='Descripcion'
               value={newTask?.descripcion} onChange={(text: string) => setNewTask({ ...newTask, descripcion: text })}
               type='default'
+            />
+          </View>
+          <Separator />
+          <View>
+            <InputCustom
+              placeholder='Para(email)'
+              value={newTask?.para} onChange={(text: string) => setNewTask({ ...newTask, para: text })}
+              type='email-address'
             />
           </View>
           <Separator />

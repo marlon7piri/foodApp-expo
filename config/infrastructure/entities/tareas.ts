@@ -2,6 +2,7 @@ export interface Tareas {
   _id?: string;
   de?: De | null;
   para: string;
+  asunto: string;
   descripcion: string;
   estado: string;
   fecha_final: Date | null;

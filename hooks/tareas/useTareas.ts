@@ -9,6 +9,7 @@ import { tareaStore } from "@/store/tareas.store";
 
 const initialValue: Tareas = {
   de: null,
+  asunto: "",
   descripcion: "",
   estado: "pendiente",
   fecha_final: null,
@@ -43,13 +44,18 @@ export const useTareas = () => {
     const nuevaTarea = {
       ...newTask,
       fecha_final: new Date(dateSelected),
-      de: "66de1bdbdb5664b4477459a0",
-      para: user?._id,
+      de: user?._id,
     };
     const res = await UseCases.createTareaUseCases(fetcherAdapter, nuevaTarea);
-    crearTask(res.data);
-    closeModalTarea();
-    loadTareas();
+
+    if (res.para == user?._id) {
+      crearTask(res.data);
+      closeModalTarea();
+      loadTareas();
+    } else {
+      closeModalTarea();
+      loadTareas();
+    }
     sendMessage("Tarea", "Creada correctamente", "success");
   };
   return {
@@ -61,5 +67,6 @@ export const useTareas = () => {
     dateSelected,
     setDateSelected,
     updateTarea,
+    loadTareas,
   };
 };

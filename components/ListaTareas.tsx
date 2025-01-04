@@ -9,6 +9,7 @@ import { convertirFecha } from '@/utils/convertirFecha'
 import { useAnimation } from '@/hooks/animations/useAnimation'
 import { opacity } from 'react-native-reanimated/lib/typescript/Colors'
 import { useTareas } from '@/hooks/tareas/useTareas'
+import Accordion from './AccordionItem'
 
 
 interface Props {
@@ -30,51 +31,17 @@ const ListaTareas = ({ item }: Props) => {
         horizontal={false}
 
         renderItem={({ item, index }) => (
-          <Animated.View style={[styles.cardItem, { opacity: animatedOpacity, transform: [{ translateY: animationTranslate }] }]}>
 
-            <Text style={styles.descripcion}>{item.descripcion}</Text>
-            <View style={styles.containername}>
-              <Text style={styles.descripcion}>{item.de.name}</Text>
+          <Accordion title={item.asunto} children={item.descripcion} item={item} />
 
-              <PersonIcon />
-            </View>
-            <Text>{convertirFecha(item.fecha_final)}</Text>
 
-            {item.estado == 'pendiente' ?
-              <Pressable onPress={() => updateTarea(item._id)} >
-                {({ pressed }) => <Text style={{ opacity: pressed ? 0.3 : 1 }}> <SadIcon /></Text>}
 
-              </Pressable>
 
-              : <Pressable onPress={() => updateTarea(item._id)}>
-                {({ pressed }) => <Text style={{ opacity: pressed ? 0.3 : 1 }}><CheckIcon /></Text>}
-
-              </Pressable>}
-          </Animated.View>
         )} />
     </View>
   )
 }
 
 
-const styles = StyleSheet.create({
-  cardItem: {
-    backgroundColor: colors.cardColor,
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  containername: {
-    flexDirection: 'row',
-    gap: 2
-  },
-  descripcion: {
-    color: colors.complementary,
-    fontSize: 18
-  },
-})
+
 export default ListaTareas

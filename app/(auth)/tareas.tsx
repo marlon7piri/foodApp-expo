@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import CustomView from "@/components/CustomView";
+import { ReloadIcon } from "@/components/Icons";
 import ListaTareas from "@/components/ListaTareas";
 import { ModalTarea } from "@/components/ModalTarea";
 import ParallaxScrollView from "@/components/ParallaxScrollView"
@@ -7,11 +8,12 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { useTareas } from "@/hooks/tareas/useTareas";
 import { useModalStore } from "@/store/modal-store";
-import { Image, StyleSheet, View } from "react-native"
+import { colors } from "@/theme/theme";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native"
 
 const Tareas = () => {
 
-  const { tareas } = useTareas()
+  const { tareas, loadTareas } = useTareas()
   const openModalTarea = useModalStore(state => state.openModalTarea)
   return (
 
@@ -21,6 +23,12 @@ const Tareas = () => {
 
       <ThemedView style={styles.titleContainer}>
         <ThemedText style={{ fontWeight: '900', fontSize: 38, padding: 10, textAlign: 'center' }} type="title">Tareas</ThemedText>
+
+        <Pressable onPress={loadTareas} style={{ padding: 2, backgroundColor: colors.cardColor, borderRadius: 50 }}>
+          {({ pressed }) => <Text style={{ opacity: pressed ? 0.3 : 1 }}><ReloadIcon /></Text>}
+
+        </Pressable>
+
         <Button text='Crear' onPress={openModalTarea} />
 
       </ThemedView>
