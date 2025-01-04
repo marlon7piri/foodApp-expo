@@ -25,7 +25,7 @@ export default function DetailsCategory() {
     getProductoByCategoryController(category)
   }, [category])
 
-
+  console.log(productosByCategoria)
 
   if (!productosByCategoria) {
     return <View style={{ flex: 1, justifyContent: 'flex-start' }}>
@@ -56,14 +56,7 @@ export default function DetailsCategory() {
           <Text style={{ ...styles.textos, fontSize: 24 }}>Productos:{productosByCategoria?.length}</Text>
 
           <Link href={'/(auth)'} asChild>
-            <Pressable style={{
-              backgroundColor: colors.cardColor,
-              borderWidth: 1,
-              borderColor: colors.complementary,
-              borderRadius: 10,
-              padding: 5
-
-            }}>
+            <Pressable >
 
               <BackIcon />
             </Pressable>
@@ -72,19 +65,25 @@ export default function DetailsCategory() {
         </View>
 
         <FlatList data={productosByCategoria}
+          ListHeaderComponent={() => (
+            <View style={{ flexDirection: 'row', padding: 10, backgroundColor: colors.secundary, borderRadius: 5, marginVertical: 10 }}>
+              <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'left', color: colors.background }}>Nombre</Text>
+              <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'center', color: colors.background }}>Stock</Text>
+              <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'center', color: colors.background }}>Precio</Text>
+              <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'left', color: colors.background }}>Presentacion x und</Text>
+            </View>
+          )}
           keyExtractor={item => item.id}
           renderItem={({ item, index }) => (
             <View style={styles.contenedor}>
 
-              <Text style={{ ...styles.textos, marginRight: 10 }}>{index + 1 + '.'}</Text>
 
-              <Text style={{ ...styles.textos, marginRight: 10 }}>{item.nombre}</Text>
-              <MaterialIcon name='add-box' size={24} />
+              <Text style={{ flex: 1, textAlign: 'left', fontSize: 16 }}>{item.nombre}</Text>
 
-              <Text style={{ ...styles.textos, marginRight: 10 }}>{item.stock}</Text>
-              <MaterialIcon name='error-outline' size={24} />
+              <Text style={{ flex: 1, textAlign: 'center', fontSize: 16 }}>{item.stock}</Text>
+              <Text style={{ flex: 1, textAlign: 'center', fontSize: 16, fontWeight: '700' }}><Text style={{ color: 'green', fontWeight: '900' }}>$</Text>{item.precio_compra}</Text>
+              <Text style={{ flex: 1, textAlign: 'center', fontSize: 16 }}>{item.presentacion_por_unidad}/{item.unidad_medida}</Text>
 
-              <Text style={styles.textos}>{item.stock_min}</Text>
 
 
             </View>
@@ -101,11 +100,14 @@ export default function DetailsCategory() {
 
 const styles = StyleSheet.create({
   contenedor: {
-    display: 'flex',
     flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     gap: 2,
+    marginBottom: 5,
+    backgroundColor: colors.cardColor,
+    borderWidth: 1,
+    padding: 7,
+    borderRadius: 5
   },
   containerSubtitle: {
     display: 'flex',

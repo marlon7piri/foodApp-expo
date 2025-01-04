@@ -8,6 +8,7 @@ import { Link, useLocalSearchParams } from 'expo-router'
 import { AddCircle, BackIcon, RemoveCircle, UsdIcon } from '@/components/Icons'
 import { useCompras } from '@/hooks/compras/useCompras'
 import { Producto } from '@/config/infrastructure/entities/compras'
+import ListaProductosCompra from '@/components/ListaProductosCompra'
 
 
 
@@ -48,9 +49,6 @@ export default function DetailsListaCompras() {
         <Subtitle text="Productos a Comprar" style={{ fontSize: 28, fontWeight: '900' }} />
         <Link href={'/cart'} asChild>
           <Pressable style={{
-            backgroundColor: colors.cardColor,
-            borderWidth: 1,
-            borderColor: colors.complementary,
             borderRadius: 10,
             padding: 5
 
@@ -66,48 +64,7 @@ export default function DetailsListaCompras() {
 
 
 
-        <FlatList data={productosCompra}
-          keyExtractor={item => item?._id}
-          renderItem={({ item, index }) => (
-            <View style={styles.containerLista}>
-              <View style={styles.infoList}>
-                <Text style={styles.txtPrecio}>{index + 1 + '.'}</Text>
-                <Text style={styles.txtNombre}>{item?.nombre}</Text>
-                <UsdIcon />
-                <Text style={styles.txtPrecio}>{item?.precio_compra}</Text>
-                <Text style={styles.txtUnidad}>{item?.unidad_medida}</Text>
-              </View>
-
-              <Pressable style={{ backgroundColor: colors.secundary, borderRadius: 50 }}>
-
-                <RemoveCircle />
-              </Pressable>
-              <Text style={styles.txtUnidad}>{item?.cantidad}</Text>
-              <Pressable style={{ backgroundColor: colors.secundary, borderRadius: 50 }}>
-
-                <AddCircle />
-              </Pressable>
-
-
-            </View>
-          )}
-
-          ListFooterComponent={
-            <View style={{
-              padding: 10,
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-            }}>
-              <Text style={styles.txtPrecio}>
-                Total de la compra:
-              </Text>
-              <Text style={styles.txtTotal}>
-                ${parseFloat(total?.toFixed(2))}
-              </Text>
-            </View>
-          } />
+        <ListaProductosCompra item={productosCompra} total={total} />
 
 
 
@@ -124,9 +81,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    backgroundColor: colors.cardColor,
     alignItems: 'center',
-    gap: 4,
-    marginTop: 10,
+    padding: 10,
+    marginBottom: 5,
+    borderWidth: 1,
+    borderRadius: 5
   },
   infoList: {
     flex: 1,

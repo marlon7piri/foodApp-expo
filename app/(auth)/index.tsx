@@ -47,11 +47,13 @@ export default function HomeScreen() {
         />
       }
     >
+      <ThemedView style={styles.titleContainer}>
+        <ThemedText style={{ fontWeight: '900', fontSize: 38, padding: 10 }} type="title">Hola👋   {user?.name}</ThemedText>
+      </ThemedView>
 
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Categorias</ThemedText>
+        <ThemedText type="title" >Categorias</ThemedText>
         <Button text='Crear' onPress={openModalCategory} />
-        <Button text='Logout' onPress={logout} />
       </ThemedView>
 
       <CustomFlatlist items={category} />
@@ -68,7 +70,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 8,
+    marginTop: 10,
+    padding: 10
   },
   stepContainer: {
     gap: 8,

@@ -40,11 +40,7 @@ export default function DetailsRecipes() {
           <Subtitle text="Ingredientes" style={{ fontWeight: '500', fontSize: 24 }} />
           <Link href={'/recetas'} asChild>
             <Pressable style={{
-              backgroundColor: colors.cardColor,
-              borderWidth: 1,
-              borderColor: colors.complementary,
-              borderRadius: 10,
-              padding: 5
+
 
             }}>
 

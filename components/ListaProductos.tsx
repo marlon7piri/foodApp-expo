@@ -54,7 +54,7 @@ export const ListaProductos = ({ item }: Props) => {
                         <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'left', color: colors.complementary }}>{item.nombre}</Text>
 
                         <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'center', color: colors.complementary }}>{item.precio_compra}</Text>
-                        <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'right', color: colors.complementary }}>{item.presentacion_por_unidad}</Text>
+                        <Text style={{ flex: 1, fontWeight: 'bold', textAlign: 'center', color: colors.complementary }}>{item.presentacion_por_unidad}/{item.unidad_medida}</Text>
                     </View>
 
 

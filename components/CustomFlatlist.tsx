@@ -33,10 +33,10 @@ export default function CustomFlatlist({ items }: PropsFlatlist) {
       showsHorizontalScrollIndicator={false}
       renderItem={({ item, index }) => (
 
-        <Link href={`/${item.id}`} asChild>
+        <Link href={`/(category)/${item.id}`} asChild>
           <Pressable style={styles.container}>
 
-            <Text>{item.nombre}</Text>
+            <Text style={styles.textButton}>{item.nombre}</Text>
           </Pressable>
 
         </Link>
@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: colors.complementary,
-    fontWeight: '900'
+    fontWeight: '700',
+    fontSize: 18
 
   }
 });

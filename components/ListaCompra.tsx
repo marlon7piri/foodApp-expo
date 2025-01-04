@@ -42,7 +42,16 @@ export const ListaCompra = () => {
 
         <View style={{ flex: 1 }}>
             <FlatList
+                ListHeaderComponent={() => (
 
+                    <View style={{ flex: 1, flexDirection: 'row', backgroundColor: colors.secundary, padding: 10, borderRadius: 5, marginBottom: 5 }}>
+
+                        <Text style={{ flex: 1, textAlign: 'left', color: colors.background, fontWeight: '700' }}>Fecha</Text>
+                        <Text style={{ flex: 1, textAlign: 'right', color: colors.background, fontWeight: '700' }}>Estado</Text>
+                        <Text style={{ flex: 1, textAlign: 'right', color: colors.background, fontWeight: '700' }}>Total</Text>
+                        <Text style={{ flex: 1, textAlign: 'right', color: colors.background, fontWeight: '700' }}>Accion</Text>
+                    </View>
+                )}
                 data={compras}
                 keyExtractor={item => item?._id}
                 renderItem={({ item }) => (
@@ -50,12 +59,11 @@ export const ListaCompra = () => {
                     <Link href={`/(compras)/${item._id}`} asChild>
 
                         <Pressable style={styles.item}>
-                            <Ionicons name='calendar-number-outline' size={20} color={colors.complementary} />
 
-                            <Text style={styles.title}>{convertirFecha(item?.fecha)}</Text>
-                            <Ionicons name='checkmark-circle' size={20} color={item?.estado === 'pendiente' ? colors.dangerColor : 'green'} />
+                            <Text >{convertirFecha(item?.fecha)}</Text>
 
-                            <Text style={styles.title}>{item?.estado}</Text>
+                            <Text >{item?.estado}</Text>
+                            <Text >{item?.total}</Text>
 
                             <Pressable onPress={() => quitarDelCarrito(item._id)} style={styles.botonContainer}>
                                 <Ionicons name='trash' size={20} color={'red'} />
@@ -66,6 +74,14 @@ export const ListaCompra = () => {
                         </Pressable>
                     </Link>
                 )}
+
+                ListFooterComponent={
+                    <View style={{ padding: 10 }}>
+                        <Text style={{ textAlign: 'center', color: colors.complementary }}>
+                            No hay más listas de compras
+                        </Text>
+                    </View>
+                }
             />
         </View>
     )
@@ -78,17 +94,15 @@ const styles = StyleSheet.create({
 
     },
     item: {
-        display: 'flex',
         flexDirection: 'row',
+        backgroundColor: colors.cardColor,
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: colors.background,
-        padding: 15,
-        marginVertical: 8,
-        marginHorizontal: 16,
-        borderRadius: 20,
+        padding: 10,
+        marginBottom: 5,
         borderWidth: 1,
-        borderColor: colors.complementary,
+        borderRadius: 5
+
     },
     title: {
         fontSize: 18,
