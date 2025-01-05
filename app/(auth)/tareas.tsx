@@ -9,38 +9,54 @@ import { ThemedView } from "@/components/ThemedView";
 import { useTareas } from "@/hooks/tareas/useTareas";
 import { useModalStore } from "@/store/modal-store";
 import { colors } from "@/theme/theme";
+import { Stack } from "expo-router";
+import { useState } from "react";
+import { RefreshControl, ScrollView } from "react-native";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native"
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Tareas = () => {
 
   const { tareas, loadTareas } = useTareas()
+  const { top } = useSafeAreaInsets()
+  const [isrefreshing, setIsrefreshing] = useState(false)
   const openModalTarea = useModalStore(state => state.openModalTarea)
+
+
+  const onRefresh = () => {
+    setIsrefreshing(true)
+    setTimeout(() => {
+      loadTareas()
+      setIsrefreshing(false)
+    }, 2000)
+  }
+
   return (
 
 
     <CustomView >
+      <Stack.Screen options={{ headerShown: false }} />
+      <ScrollView>
+        <  RefreshControl refreshing={isrefreshing} onRefresh={onRefresh} progressViewOffset={top} colors={['red']} />
 
-
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText style={{ fontWeight: '900', fontSize: 38, padding: 10, textAlign: 'center' }} type="title">Tareas</ThemedText>
-
-        <Pressable onPress={loadTareas} style={{ padding: 2, backgroundColor: colors.cardColor, borderRadius: 50 }}>
-          {({ pressed }) => <Text style={{ opacity: pressed ? 0.3 : 1 }}><ReloadIcon /></Text>}
-
-        </Pressable>
-
-        <Button text='Crear' onPress={openModalTarea} />
-
-      </ThemedView>
+        <ThemedView style={styles.titleContainer}>
+          <ThemedText style={{ fontWeight: '900', fontSize: 38, padding: 10, textAlign: 'center' }} type="title">Tareas</ThemedText>
 
 
 
-      <ListaTareas item={tareas} />
+          <Button text='Crear' onPress={openModalTarea} />
+
+        </ThemedView>
 
 
-      <View>
-        <ModalTarea />
-      </View>
+
+        <ListaTareas item={tareas} />
+
+
+        <View>
+          <ModalTarea />
+        </View>
+      </ScrollView>
     </CustomView>
 
 

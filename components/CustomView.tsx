@@ -2,6 +2,7 @@ import { View, Text, StyleProp, ViewStyle, SafeAreaView, useWindowDimensions, Im
 import React, { PropsWithChildren, useContext, useRef } from 'react'
 import { colors } from '@/theme/theme'
 import { StyleSheet } from 'react-native'
+import { Stack } from 'expo-router'
 
 interface Props extends PropsWithChildren {
 
@@ -20,6 +21,7 @@ export default function CustomView({ style, children }: Props) {
       style={styles.backgroundImage}
       resizeMode="cover"
     >
+
       <SafeAreaView
         style={{
           flex: 1,

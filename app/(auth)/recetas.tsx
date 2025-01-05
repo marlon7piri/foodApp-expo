@@ -14,6 +14,8 @@ import { ModalCategory } from '@/components/ModalCategory';
 import { ModalReceta } from '@/components/ModalReceta';
 import { useEffect } from 'react';
 import { useProducto } from '@/hooks/productos/useProducto';
+import CustomView from '@/components/CustomView';
+import { Stack } from 'expo-router';
 
 export default function RecetasScreen() {
   const { recetas } = useReceta()
@@ -26,13 +28,14 @@ export default function RecetasScreen() {
 
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
+      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
           source={require('@/assets/images/wallpaper2.jpeg')}
           style={styles.reactLogo}
         />
-      }>
+      }
+    >
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Recetas</ThemedText>
         <Button text='Crear' onPress={openModalCreateRecipes} />

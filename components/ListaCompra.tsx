@@ -56,7 +56,7 @@ export const ListaCompra = () => {
                 keyExtractor={item => item?._id}
                 renderItem={({ item }) => (
 
-                    <Link href={`/compras/${item._id}`} asChild>
+                    <Link href={`/(compras)/${item._id}`} asChild>
 
                         <Pressable style={styles.item}>
 

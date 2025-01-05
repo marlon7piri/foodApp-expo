@@ -33,7 +33,7 @@ export default function CustomFlatlist({ items }: PropsFlatlist) {
       showsHorizontalScrollIndicator={false}
       renderItem={({ item, index }) => (
 
-        <Link href={`/category/${item.id}`} asChild>
+        <Link href={`/(category)/${item.id}`} asChild>
           <Pressable style={styles.container}>
 
             <Text style={styles.textButton}>{item.nombre}</Text>

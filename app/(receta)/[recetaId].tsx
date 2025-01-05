@@ -4,10 +4,11 @@ import { RouteProp, useRoute } from '@react-navigation/native'
 import CustomView from '@/components/CustomView'
 import Subtitle from '@/components/Subtitle'
 import TheTitle from '@/components/TheTitle'
-import { Link, useLocalSearchParams } from 'expo-router'
+import { Link, Stack, useLocalSearchParams, useRouter } from 'expo-router'
 import { colors } from '@/theme/theme'
 import { BackIcon } from '@/components/Icons'
 import { useReceta } from '@/hooks/recetas/useReceta'
+import { BackButton } from '@/components/BackButton'
 
 export default function DetailsRecipes() {
   const params = useLocalSearchParams()
@@ -31,6 +32,7 @@ export default function DetailsRecipes() {
   return (
 
     <CustomView >
+      <Stack.Screen options={{ headerShown: true, title: 'Recetas', headerBackTitle: 'RERG', headerBackVisible: true }} />
 
       <TheTitle title={recetaById?.nombre} />
 
@@ -38,15 +40,7 @@ export default function DetailsRecipes() {
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Subtitle text="Ingredientes" style={{ fontWeight: '500', fontSize: 24 }} />
-          <Link href={'/recetas'} asChild>
-            <Pressable style={{
-
-
-            }}>
-
-              <BackIcon />
-            </Pressable>
-          </Link>
+          <BackButton />
         </View>
 
         <FlatList data={recetaById?.productos}

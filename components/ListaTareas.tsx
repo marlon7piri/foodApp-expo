@@ -25,19 +25,10 @@ const ListaTareas = ({ item }: Props) => {
   }, [animatedOpacity, animationTranslate])
   return (
     <View style={{ flex: 1 }}>
-      <FlatList
-        keyExtractor={item => item._id}
-        data={item}
-        horizontal={false}
+      {
+        item.map((item) => <Accordion key={item._id} title={item.asunto} children={item.descripcion} item={item} />)
+      }
 
-        renderItem={({ item, index }) => (
-
-          <Accordion title={item.asunto} children={item.descripcion} item={item} />
-
-
-
-
-        )} />
     </View>
   )
 }

@@ -7,6 +7,7 @@ import { colors } from '@/theme/theme'
 import { Link, useLocalSearchParams, useRouter } from 'expo-router'
 import { Stack } from 'expo-router'
 import { BackIcon } from '@/components/Icons'
+import { BackButton } from '@/components/BackButton'
 
 export default function DetailsCategory() {
   const { category } = useLocalSearchParams()
@@ -31,14 +32,8 @@ export default function DetailsCategory() {
 
     <CustomView >
 
-      <Stack.Screen options={{
-        headerTransparent: false,
-        headerTitle: '',
+      <Stack.Screen options={{ headerShown: true, title: 'Categoria', headerBackTitle: 'Atras' }} />
 
-
-
-
-      }} />
 
       <View >
 
@@ -46,12 +41,7 @@ export default function DetailsCategory() {
         <View style={styles.containerSubtitle}>
           <Text style={{ ...styles.textos, fontSize: 24 }}>{categoryById?.nombre}: {productosByCategoria?.length}</Text>
 
-          <Link href={'/(auth)'} asChild>
-            <Pressable >
-
-              <BackIcon />
-            </Pressable>
-          </Link>
+          <BackButton />
 
         </View>
 

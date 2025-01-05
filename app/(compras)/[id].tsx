@@ -4,12 +4,13 @@ import { RouteProp, useRoute } from '@react-navigation/native'
 import CustomView from '@/components/CustomView'
 import Subtitle from '@/components/Subtitle'
 import { colors } from '@/theme/theme'
-import { Link, useLocalSearchParams } from 'expo-router'
+import { Link, Stack, useLocalSearchParams } from 'expo-router'
 import { AddCircle, BackIcon, RemoveCircle, UsdIcon } from '@/components/Icons'
 import { useCompras } from '@/hooks/compras/useCompras'
 import { Producto } from '@/config/infrastructure/entities/compras'
 import ListaProductosCompra from '@/components/ListaProductosCompra'
 import { comprasStore } from '@/store/compras.store'
+import { BackButton } from '@/components/BackButton'
 
 
 
@@ -47,19 +48,10 @@ export default function DetailsListaCompras() {
   return (
 
     <CustomView >
-
+      <Stack.Screen options={{ headerShown: true, title: 'Compra', headerBackTitle: 'Atras' }} />
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Subtitle text="Productos a Comprar" style={{ fontSize: 28, fontWeight: '900' }} />
-        <Link href={'/cart'} asChild>
-          <Pressable style={{
-            borderRadius: 10,
-            padding: 5
-
-          }}>
-
-            <BackIcon />
-          </Pressable>
-        </Link>
+        <BackButton />
       </View>
 
 

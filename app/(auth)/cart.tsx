@@ -12,6 +12,7 @@ import { useModalStore } from '@/store/modal-store'
 import { ModalListaCompra } from '@/components/ModalListaCompra'
 import { productStore } from '@/store/product.store'
 import { Ionicons } from '@expo/vector-icons'
+import { Stack } from 'expo-router'
 
 export default function CartScreen() {
 

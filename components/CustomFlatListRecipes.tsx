@@ -6,7 +6,7 @@ import React from 'react'
 import { Receta } from '@/config/infrastructure/entities/receta'
 import { NavigationProp, RouteProp, useNavigation } from '@react-navigation/native'
 import { useReceta } from '@/hooks/recetas/useReceta'
-import { useRouter } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 
 
@@ -40,15 +40,16 @@ export default function CustomFlatListRecipes({ recipes }: PropsFlatlist) {
       showsHorizontalScrollIndicator={false}
       renderItem={({ item, index }) => (
 
-
-        <Pressable style={[styles.container,
+        <Link href={`/(receta)/${item?._id}`} asChild style={[styles.container,
         { backgroundColor: colors.cardColor }
-        ]}
-          onPress={() => router.replace(`/recetasDetalles/${item?._id}`)}>
-          <Ionicons name='library-outline' size={22} color={colors.complementary} />
-          <Text>{item?.nombre}</Text>
+        ]}>
+          <Pressable
+          >
+            <Ionicons name='library-outline' size={22} color={colors.complementary} />
+            <Text>{item?.nombre}</Text>
 
-        </Pressable>
+          </Pressable>
+        </Link>
       )
       }
 

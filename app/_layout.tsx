@@ -32,9 +32,7 @@ const InitialLayout = () => {
     }
   }, [token])
 
-  return <Stack screenOptions={{ headerShown: false }} >
-
-  </Stack>
+  return <Stack screenOptions={{ headerShown: false }} />
 }
 
 
@@ -65,7 +63,10 @@ export default function RootLayout() {
 
 
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+
       <InitialLayout />
+
+
       <Toast />
       <StatusBar style='auto' />
     </ThemeProvider>
