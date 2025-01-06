@@ -93,19 +93,24 @@ const styles = StyleSheet.create({
   cardItem: {
     backgroundColor: colors.cardColor,
 
-    borderWidth: 1,
     borderRadius: 20,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
+    elevation: 5,
+    marginBottom: 20,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomColor: "#ddd",
-    padding: 15
+    padding: 15,
+
   },
   title: {
     fontSize: 18,

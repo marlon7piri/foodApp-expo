@@ -24,7 +24,7 @@ const ListaTareas = ({ item }: Props) => {
     moveUp(20)
   }, [animatedOpacity, animationTranslate])
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, padding: 10 }}>
       {
         item.map((item) => <Accordion key={item._id} title={item.asunto} children={item.descripcion} item={item} />)
       }

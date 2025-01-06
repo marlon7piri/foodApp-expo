@@ -2,14 +2,16 @@ import Button from "@/components/Button";
 import CustomView from "@/components/CustomView";
 import { ReloadIcon } from "@/components/Icons";
 import ListaTareas from "@/components/ListaTareas";
+import { ModalContacto } from "@/components/ModalContacto";
 import { ModalTarea } from "@/components/ModalTarea";
 import ParallaxScrollView from "@/components/ParallaxScrollView"
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { useContacto } from "@/hooks/contacto/useContacto";
 import { useTareas } from "@/hooks/tareas/useTareas";
 import { useModalStore } from "@/store/modal-store";
 import { colors } from "@/theme/theme";
-import { Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
 import { useState } from "react";
 import { RefreshControl, ScrollView } from "react-native";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native"
@@ -21,6 +23,7 @@ const Tareas = () => {
   const { top } = useSafeAreaInsets()
   const [isrefreshing, setIsrefreshing] = useState(false)
   const openModalTarea = useModalStore(state => state.openModalTarea)
+  const navigation = useNavigation()
 
 
   const onRefresh = () => {
@@ -44,6 +47,7 @@ const Tareas = () => {
 
 
 
+          <Button text='Contactos' onPress={() => navigation.navigate('/(contacto)/contacto')} />
           <Button text='Crear' onPress={openModalTarea} />
 
         </ThemedView>
@@ -55,6 +59,7 @@ const Tareas = () => {
 
         <View>
           <ModalTarea />
+          <ModalContacto />
         </View>
       </ScrollView>
     </CustomView>

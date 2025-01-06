@@ -14,16 +14,17 @@ import { useCategory } from '@/hooks/categorias/useCategory'
 import { useTareas } from '@/hooks/tareas/useTareas'
 import { CalendarPicker } from './CalendarPicker'
 import { convertirFecha } from '@/utils/convertirFecha'
+import { Picker } from '@react-native-picker/picker'
+import { useContacto } from '@/hooks/contacto/useContacto'
 
 
 export const ModalTarea = () => {
 
   const isopenModalTarea = useModalStore(state => state.isopenModalTarea)
   const closeModalTarea = useModalStore(state => state.closeModalTarea)
-  const productos = productStore(state => state.productos)
+  const { contactos } = useContacto()
 
-
-  const { newTask, setNewTask, loading, crearTarea, dateSelected, setDateSelected } = useTareas()
+  const { newTask, setNewTask, loading, crearTarea, dateSelected, setDateSelected, contactoSelected, setContactoSelected } = useTareas()
 
 
 
@@ -55,13 +56,17 @@ export const ModalTarea = () => {
             />
           </View>
           <Separator />
-          <View>
-            <InputCustom
-              placeholder='Para(email)'
-              value={newTask?.para} onChange={(text: string) => setNewTask({ ...newTask, para: text })}
-              type='email-address'
-            />
-          </View>
+
+          <Picker
+            selectedValue={contactoSelected}
+            onValueChange={(itemValue, itemIndex) =>
+              setContactoSelected(itemValue)
+            }>
+
+            {contactos?.map(e => {
+              return <Picker.Item label={e.email} value={e.email} key={e._id} />
+            })}
+          </Picker>
           <Separator />
           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
             <Text>Fecha vencimiento:</Text>

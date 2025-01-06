@@ -25,6 +25,7 @@ export const useTareas = () => {
   const obtenerTareas = tareaStore((state) => state.obtenerTareas);
   const crearTask = tareaStore((state) => state.crearTarea);
   const tareas = tareaStore((state) => state.tareas);
+  const [contactoSelected, setContactoSelected] = useState(null);
 
   useEffect(() => {
     loadTareas();
@@ -41,13 +42,13 @@ export const useTareas = () => {
     sendMessage("Tarea", "Actualizada correctamente", "success");
   };
   const crearTarea = async () => {
-    const nuevaTarea = {
+    const nuevaTarea: Tareas = {
       ...newTask,
+      para: contactoSelected,
       fecha_final: new Date(dateSelected),
       de: user?._id,
     };
     const res = await UseCases.createTareaUseCases(fetcherAdapter, nuevaTarea);
-
     if (res.para == user?._id) {
       crearTask(res.data);
       closeModalTarea();
@@ -68,5 +69,7 @@ export const useTareas = () => {
     setDateSelected,
     updateTarea,
     loadTareas,
+    contactoSelected,
+    setContactoSelected,
   };
 };

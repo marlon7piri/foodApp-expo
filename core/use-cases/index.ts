@@ -12,3 +12,5 @@ export * from "./compras/create-compra.use-cases";
 export * from "./tareas/tareas.use-cases";
 export * from "./tareas/create-tarea.use-cases";
 export * from "./tareas/update-tarea.use-cases";
+export * from "./contacto/contacto.use-cases";
+export * from "./contacto/crearContacto.use-cases";

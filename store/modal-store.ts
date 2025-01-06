@@ -6,6 +6,7 @@ interface FunctionsProps {
   isopenModalCategory: boolean;
   isopenModalListaCompra: boolean;
   isopenModalTarea: boolean;
+  isopenModalContacto: boolean;
   openModalCreateRecipes: () => void;
   closeModalCreateRecipes: () => void;
   closeModalProducto: () => void;
@@ -16,6 +17,8 @@ interface FunctionsProps {
   closeModalListaCompra: () => void;
   openModalTarea: () => void;
   closeModalTarea: () => void;
+  openModalContacto: () => void;
+  closeModalContacto: () => void;
 }
 
 export const useModalStore = create<FunctionsProps>()((set, get) => ({
@@ -24,6 +27,7 @@ export const useModalStore = create<FunctionsProps>()((set, get) => ({
   isopenModalTarea: false,
   isopenModalListaCompra: false,
   isopenModalCategory: false,
+  isopenModalContacto: false,
 
   openModalCreateRecipes: () => {
     set((state) => ({
@@ -76,6 +80,16 @@ export const useModalStore = create<FunctionsProps>()((set, get) => ({
   openModalTarea: () => {
     set((state) => ({
       isopenModalTarea: true,
+    }));
+  },
+  openModalContacto: () => {
+    set((state) => ({
+      isopenModalContacto: true,
+    }));
+  },
+  closeModalContacto: () => {
+    set((state) => ({
+      isopenModalContacto: false,
     }));
   },
 }));

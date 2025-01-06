@@ -16,6 +16,8 @@ export default function SignUpScreen() {
   const router = useRouter()
   const [loading, setLoading] = React.useState<boolean>(false)
   const [show, setShow] = React.useState(false)
+  const [error, setError] = React.useState<string>('')
+
 
   const token = authStore(state => state.token)
   const [user, setUser] = React.useState({
@@ -30,14 +32,18 @@ export default function SignUpScreen() {
 
       setLoading(true)
       const response = await axios.post('https://food-apiv1.vercel.app/register', user)
+      console.log(response)
       if (response.status == 201) {
         router.replace('/(public)/login')
 
       }
       setLoading(false)
 
+
     } catch (error) {
-      console.log(error.message)
+      console.log(error)
+      setError(error.message)
+
 
     } finally {
       setLoading(false)
@@ -97,25 +103,31 @@ export default function SignUpScreen() {
                   <TextInput
 
                     keyboardType={'visible-password'}
-                    secureTextEntry={show}
-                    style={style.inputContainer}
+                    secureTextEntry={!show}
+                    style={{
+                      borderWidth: 1, padding: 20,
+                      fontSize: 24,
+                      borderRadius: 10,
+                      borderColor: colors.complementary
+                    }}
                     value={user.password}
                     onChangeText={(text: string) => setUser({ ...user, password: text })}
 
                   />
 
                   <TouchableOpacity onPress={showPassword} style={{ position: 'absolute', right: 10, top: 25 }}>
-                    {!show ? <EyeOpenIcon /> : <EyeCloseIcon />}
+                    {show ? <EyeOpenIcon /> : <EyeCloseIcon />}
 
                   </TouchableOpacity>
                 </View>
 
                 <Separator height={40} />
 
-
-                <TouchableOpacity onPress={register} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20 }} >
-                  <Text style={{ textAlign: 'center' }}>Register</Text>
+                {<Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
+                <TouchableOpacity onPress={register} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+                  <Text style={{ textAlign: 'center', fontWeight: '900', color: colors.background, }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Iniciar Sesion'}</Text>
                 </TouchableOpacity>
+
 
                 <Separator height={10} />
 

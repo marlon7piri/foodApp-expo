@@ -27,6 +27,7 @@ export default function CustomFlatlist({ items }: PropsFlatlist) {
   return (
     <FlatList
       data={items}
+      style={{ padding: 10 }}
       horizontal
       ItemSeparatorComponent={() => <Separator />}
       keyExtractor={item => item.id}

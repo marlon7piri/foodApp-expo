@@ -33,6 +33,8 @@ export default function CustomFlatListRecipes({ recipes }: PropsFlatlist) {
   return (
     <FlatList
       data={recipes}
+      style={{ padding: 10 }}
+
       horizontal={true}
       pagingEnabled={true}
       ItemSeparatorComponent={() => <Separator />}
