@@ -32,7 +32,7 @@ export default function SignUpScreen() {
 
       setLoading(true)
       const response = await axios.post('https://food-apiv1.vercel.app/register', user)
-      console.log(response)
+
       if (response.status == 201) {
         router.replace('/(public)/login')
 

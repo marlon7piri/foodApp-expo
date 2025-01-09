@@ -1,14 +1,15 @@
 import { Stack } from 'expo-router'
 import React from 'react'
 
-const ContactoLayout = () => {
+const RecetaLayout = () => {
   return (
     <Stack screenOptions={{
-      headerShown: false
+      headerShown: false,
+
     }}>
 
     </Stack>
   )
 }
 
-export default ContactoLayout
+export default RecetaLayout

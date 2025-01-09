@@ -20,13 +20,7 @@ export default function Layout() {
 
 
         />
-        <Drawer.Screen
-          name="(contacto)" // This is the name of the page and must match the url from root
-          options={{
-            drawerLabel: 'Contacto',
-            title: 'Contacto',
-          }}
-        />
+
 
       </Drawer>
     </GestureHandlerRootView>

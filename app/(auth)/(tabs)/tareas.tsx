@@ -47,7 +47,7 @@ const Tareas = () => {
 
 
 
-          <Button text='Contactos' onPress={() => navigation.navigate('/(contacto)')} />
+          <Button text='Contactos' onPress={() => navigation.navigate('(contacto)')} />
           <Button text='Crear' onPress={openModalTarea} />
 
         </ThemedView>

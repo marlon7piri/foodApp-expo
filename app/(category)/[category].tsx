@@ -32,7 +32,6 @@ export default function DetailsCategory() {
 
     <CustomView >
 
-      <Stack.Screen options={{ headerShown: true, title: 'Categoria', headerBackTitle: 'Atras' }} />
 
 
       <View >
@@ -41,7 +40,7 @@ export default function DetailsCategory() {
         <View style={styles.containerSubtitle}>
           <Text style={{ ...styles.textos, fontSize: 24 }}>{categoryById?.nombre}: {productosByCategoria?.length}</Text>
 
-          <BackButton />
+
 
         </View>
 

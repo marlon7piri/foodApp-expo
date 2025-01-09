@@ -32,7 +32,6 @@ export default function DetailsRecipes() {
   return (
 
     <CustomView >
-      <Stack.Screen options={{ headerShown: true, title: 'Recetas', headerBackTitle: 'RERG', headerBackVisible: true }} />
 
       <TheTitle title={recetaById?.nombre} />
 
@@ -40,7 +39,6 @@ export default function DetailsRecipes() {
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Subtitle text="Ingredientes" style={{ fontWeight: '500', fontSize: 24 }} />
-          <BackButton />
         </View>
 
         <FlatList data={recetaById?.productos}

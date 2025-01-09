@@ -36,6 +36,7 @@ const ContactoScrenn = () => {
       <ScrollView>
         <RefreshControl refreshing={isrefreshing} onRefresh={onRefresh} progressViewOffset={top} colors={['red']} />
 
+
         <ThemedView style={styles.titleContainer}>
           <ThemedText style={{ fontWeight: '700', fontSize: 24, padding: 10, textAlign: 'center' }} type="title">Mis contactos</ThemedText>
 

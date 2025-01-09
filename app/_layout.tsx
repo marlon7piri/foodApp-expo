@@ -9,6 +9,7 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { authStore } from '@/store/auth.store';
 import Toast from 'react-native-toast-message';
+import { colors } from '@/theme/theme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -32,7 +33,11 @@ const InitialLayout = () => {
     }
   }, [token])
 
-  return <Stack screenOptions={{ headerShown: false }} />
+  return <Stack screenOptions={{ headerShown: false }}>
+    <Stack.Screen name='(contacto)' options={{ headerShown: true, headerTitle: 'Contactos', headerBackTitle: 'Atras' }} />
+    <Stack.Screen name='(category)' options={{ headerShown: true, headerTitle: 'Categoria', headerBackTitle: 'Atras' }} />
+    <Stack.Screen name='(receta)' options={{ headerShown: true, headerTitle: 'Receta', headerBackTitle: 'Atras', }} />
+  </Stack>
 }
 
 
