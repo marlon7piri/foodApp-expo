@@ -38,7 +38,7 @@ const Tareas = () => {
 
 
     <CustomView >
-      <Stack.Screen options={{ headerShown: false }} />
+
       <ScrollView>
         <  RefreshControl refreshing={isrefreshing} onRefresh={onRefresh} progressViewOffset={top} colors={['red']} />
 

@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useModalStore } from '@/store/modal-store';
 import Button from '@/components/Button';
 import { ModalCategory } from '@/components/ModalCategory';
+import { DrawerToggleButton } from '@react-navigation/drawer';
 
 export default function HomeScreen() {
 
@@ -54,6 +55,7 @@ export default function HomeScreen() {
 
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title" >Categorias</ThemedText>
+
         <Button text='Crear' onPress={openModalCategory} />
       </ThemedView>
 

@@ -12,10 +12,14 @@ import { convertirFecha } from '@/utils/convertirFecha';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Link, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { Compras } from '@/config/infrastructure/entities/compras';
 
 
-export const ListaCompra = () => {
-    const { compras, loading } = useCompras()
+interface Props {
+    compras: Compras[]
+}
+export const ListaCompra = ({ compras }: Props) => {
+    const { loading } = useCompras()
     const quitarDelCarrito = cartStore(state => state.quitarDelCarrito)
     const navigation = useRouter()
 
@@ -29,8 +33,8 @@ export const ListaCompra = () => {
     }
 
     if (loading) {
-        return <View style={{ flex: 1, justifyContent: 'flex-start' }}>
-            <ActivityIndicator size={'large'} color={colors.background} />
+        return <View style={{ flex: 1, }}>
+            <ActivityIndicator size={'large'} />
         </View>
     }
 

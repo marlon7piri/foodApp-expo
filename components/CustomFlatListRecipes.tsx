@@ -4,7 +4,6 @@ import { colors } from '@/theme/theme'
 import React from 'react'
 
 import { Receta } from '@/config/infrastructure/entities/receta'
-import { NavigationProp, RouteProp, useNavigation } from '@react-navigation/native'
 import { useReceta } from '@/hooks/recetas/useReceta'
 import { Link, useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'

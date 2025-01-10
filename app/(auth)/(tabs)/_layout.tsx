@@ -10,6 +10,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { Ionicons } from '@expo/vector-icons';
 import { BackIcon, LogoutIcon, MenuIcon } from '@/components/Icons';
 import { authStore } from '@/store/auth.store';
+import { DrawerToggleButton } from '@react-navigation/drawer';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -37,14 +38,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           headerShown: false,
-          headerRight: () => (<Pressable style={{
-            borderRadius: 10,
-            padding: 5
 
-          }} onPress={logout}>
-
-            <LogoutIcon />
-          </Pressable>),
           headerLeft: () => (
             <Image source={require('@/assets/images/cutlery.png')} style={{ objectFit: 'cover', width: 40, height: 40 }} />),
 
@@ -56,7 +50,7 @@ export default function TabLayout() {
 
         options={{
           title: 'Tareas',
-          headerShown: true,
+          headerShown: false,
 
 
           tabBarIcon: ({ color }) => <Ionicons name="albums" size={24} color={color} />

@@ -51,7 +51,6 @@ export default function DetailsListaCompras() {
       <Stack.Screen options={{ headerShown: true, title: 'Compra', headerBackTitle: 'Atras' }} />
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Subtitle text="Productos a Comprar" style={{ fontSize: 28, fontWeight: '900' }} />
-        <BackButton />
       </View>
 
 

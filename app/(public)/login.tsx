@@ -90,11 +90,12 @@ export default function Page() {
 
                 <Subtitle text='Correo' style={{ color: colors.complementary }} />
 
-                <InputCustom
-
-                  type='email-address'
+                <TextInput
+                  autoComplete='email'
+                  style={style.inputContainer}
+                  keyboardType='email-address'
                   value={user.email}
-                  onChange={(text: string) => setUser({ ...user, email: text })} />
+                  onChangeText={(text: string) => setUser({ ...user, email: text })} />
 
 
                 <Separator />

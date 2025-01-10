@@ -35,8 +35,6 @@ export default function CustomModal({ children, value, close }: Props) {
 
           <View style={{
             flex: 1,
-
-            backgroundColor: colors.background,
             padding: 20,
 
 

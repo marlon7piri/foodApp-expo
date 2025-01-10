@@ -13,10 +13,12 @@ import { ModalListaCompra } from '@/components/ModalListaCompra'
 import { productStore } from '@/store/product.store'
 import { Ionicons } from '@expo/vector-icons'
 import { Stack } from 'expo-router'
+import { useCompras } from '@/hooks/compras/useCompras'
 
 export default function CartScreen() {
 
   const openModalListaCompra = useModalStore().openModalListaCompra
+  const { compras } = useCompras()
 
 
 
@@ -36,7 +38,7 @@ export default function CartScreen() {
         </TouchableOpacity>
       </View>
 
-      <ListaCompra />
+      <ListaCompra compras={compras} />
       <View>
         <ModalListaCompra />
       </View>

@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Platform, View } from 'react-native';
+import { StyleSheet, Image, Platform, View, ActivityIndicator } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -40,7 +40,7 @@ export default function RecetasScreen() {
         <ThemedText type="title">Recetas</ThemedText>
         <Button text='Crear' onPress={openModalCreateRecipes} />
       </ThemedView>
-      <CustomFlatListRecipes recipes={recetas} />
+      {!recetas ? <ActivityIndicator size={'large'} /> : <CustomFlatListRecipes recipes={recetas} />}
 
       <View>
         <ModalReceta />
