@@ -1,11 +1,7 @@
-import { useSignIn } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
-import { Text, TextInput, Button, View, StyleSheet, KeyboardAvoidingView, ImageBackground, SafeAreaView, TouchableOpacity, ActivityIndicator, useWindowDimensions, Pressable } from 'react-native'
+import { Text, TextInput, Button, View, StyleSheet, SafeAreaView, TouchableOpacity, ActivityIndicator, useWindowDimensions, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import TheTitle from '@/components/TheTitle'
-import Subtitle from '@/components/Subtitle'
-import { InputCustom } from '@/components/InputCustom'
 import { Separator } from '@/components/Separator'
 import { colors } from '@/theme/theme'
 import axios from 'axios'
@@ -13,6 +9,8 @@ import { authStore } from '@/store/auth.store'
 import { MaterialIcons } from '@expo/vector-icons'
 import { EyeCloseIcon, EyeOpenIcon } from '@/components/Icons'
 import { KeyBoardComponent } from '@/components/KeyBoardComponent'
+import GradientBackground from '@/components/GradientBackground'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function Page() {
 
@@ -72,93 +70,103 @@ export default function Page() {
 
   return (
     <SafeAreaProvider>
+
+
       <KeyBoardComponent>
-        <ImageBackground
-          source={require('@/assets/images/wallpaper2.jpeg')} // Ruta de la imagen
-          style={style.backgroundImage}
-          resizeMode="cover"
-        >
-          <SafeAreaView style={{ flex: 1 }}>
 
 
 
 
-            <View style={style.container} >
+        <SafeAreaView style={{ flex: 1 }}>
 
-
-              <View style={{ width: widthScreen - 100 }}>
-                <TheTitle title='Login' styles={{ fontSize: 34, color: colors.complementary, textAlign: 'center', }} />
-
-                <Subtitle text='Correo' style={{ color: colors.complementary }} />
-
-                <TextInput
-                  autoComplete='email'
-                  style={style.inputContainer}
-                  keyboardType='email-address'
-                  value={user.email}
-                  onChangeText={(text: string) => setUser({ ...user, email: text })} />
-
-
-                <Separator />
-
-                <Subtitle text='Contraseña' style={{ color: colors.complementary }} />
-
-                <View style={{ position: 'relative' }}>
-                  <TextInput
-
-                    keyboardType={'visible-password'}
-                    secureTextEntry={!show}
-                    style={style.inputContainer}
-                    value={user.password}
-                    onChangeText={(text: string) => setUser({ ...user, password: text })}
-
-                  />
-
-                  <TouchableOpacity onPress={showPassword} style={{ position: 'absolute', right: 10, top: 25 }}>
-                    {!show ? <EyeOpenIcon /> : <EyeCloseIcon />}
-
-                  </TouchableOpacity>
-                </View>
-
-                <Separator height={40} />
-                {error && <Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
-                <TouchableOpacity onPress={loginhandler} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                  <Text style={{ textAlign: 'center', color: colors.background, fontWeight: 700 }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Iniciar Sesion'}</Text>
-                </TouchableOpacity>
-
-
-
-                <Separator height={50} />
-
-                <View style={style.containerRegister}>
-
-                  <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 4 }}>
-                    <Text style={style.txt}>Ya tienes una cuenta?</Text>
-
-                    <Pressable onPress={() => router.navigate('/(public)/register')}>
-                      <Text style={style.textRegister}>Registrarse</Text>
-                    </Pressable>
-
-                  </View>
+          <GradientBackground text='Login' />
 
 
 
 
-                  <Link style={style.textRegister} href='/(public)/reset'>
-                    <Text >Olvide mi contraseña.</Text>
-                  </Link>
 
 
 
-                </View>
+
+
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: widthScreen, padding: 20 }}>
+
+
+            <TextInput
+              autoComplete='email'
+              style={style.inputContainer}
+              placeholder='Correo'
+              placeholderTextColor={'#95a5a6'}
+              keyboardType='email-address'
+              value={user.email}
+              onChangeText={(text: string) => setUser({ ...user, email: text })} />
+
+
+            <Separator />
+
+
+            <View style={{ width: '100%', position: 'relative' }}>
+              <TextInput
+                placeholder='Contraseña'
+                placeholderTextColor={'#95a5a6'}
+                keyboardType={'visible-password'}
+                secureTextEntry={!show}
+                style={style.inputContainer}
+                value={user.password}
+                onChangeText={(text: string) => setUser({ ...user, password: text })}
+
+              />
+
+              <TouchableOpacity onPress={showPassword} style={{ position: 'absolute', right: 10, top: 25 }}>
+                {!show ? <EyeOpenIcon /> : <EyeCloseIcon />}
+
+              </TouchableOpacity>
+            </View>
+
+            <Separator height={40} />
+            {error && <Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
+
+
+
+            <LinearGradient colors={["rgba(0,212,255,1)", "rgba(9,113,121,1)"]} style={style.btnLogin}>
+              <TouchableOpacity onPress={loginhandler} style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ textAlign: 'center', color: colors.background, fontWeight: 700 }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Iniciar Sesion'}</Text>
+
+              </TouchableOpacity>
+            </LinearGradient>
+
+
+
+            <Separator height={50} />
+
+            <View style={style.containerRegister}>
+
+              <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 4 }}>
+                <Text style={style.txt}>Ya tienes una cuenta?</Text>
+
+                <Pressable onPress={() => router.navigate('/(public)/register')} >
+                  <Text style={style.textRegister}>Registrarse</Text>
+                </Pressable>
+
               </View>
 
 
+
+
+              <Link style={style.textRegister} href='/(public)/reset'>
+                <Text >Olvide mi contraseña.</Text>
+              </Link>
+
+
+
             </View>
-          </SafeAreaView>
-        </ImageBackground>
+          </View>
+
+
+
+        </SafeAreaView>
       </KeyBoardComponent>
-    </SafeAreaProvider>
+    </SafeAreaProvider >
   )
 
 
@@ -168,7 +176,6 @@ const style = StyleSheet.create({
 
 
   container: {
-    width: '100%',
     flex: 1,
     display: 'flex',
     padding: 10,
@@ -176,13 +183,11 @@ const style = StyleSheet.create({
     alignItems: 'center',
 
   },
-  backgroundImage: {
-    flex: 1,
-    height: '100%'
-  },
+
 
 
   containerRegister: {
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
@@ -202,12 +207,36 @@ const style = StyleSheet.create({
 
 
   inputContainer: {
+    width: '100%',
     padding: 20,
     fontSize: 24,
-    borderRadius: 10,
+    borderRadius: 40,
     borderWidth: 1,
-    borderColor: colors.complementary
+    borderColor: colors.complementary,
+    backgroundColor: colors.background,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 3, height: 5
+    },
+    shadowOpacity: 0.5
 
-  }
+  },
+  btnLogin: {
+
+    borderRadius: 40,
+    padding: 25,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    shadowColor: 'black',
+    elevation: 10,
+    shadowOffset: {
+      width: 3, height: 5
+    },
+    shadowOpacity: 0.3
+
+  },
+
 
 })

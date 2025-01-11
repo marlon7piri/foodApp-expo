@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Text, TextInput, Button, View, StyleSheet, TouchableOpacity, ImageBackground, SafeAreaView, ActivityIndicator } from 'react-native'
+import { Text, TextInput, Button, View, StyleSheet, TouchableOpacity, ImageBackground, SafeAreaView, ActivityIndicator, useWindowDimensions, Pressable } from 'react-native'
 import { Link, useLocalSearchParams, useRouter } from 'expo-router'
 import { colors } from '@/theme/theme'
 import { Separator } from '@/components/Separator'
@@ -12,6 +12,8 @@ import { authStore } from '@/store/auth.store'
 import { EyeCloseIcon, EyeOpenIcon } from '@/components/Icons'
 import { KeyBoardComponent } from '@/components/KeyBoardComponent'
 import { sendMessage } from '@/components/ToastCustom'
+import GradientBackground from '@/components/GradientBackground'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function resetPage() {
   const router = useRouter()
@@ -25,6 +27,7 @@ export default function resetPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const params = useLocalSearchParams()
   const { tokenId } = params
+  const widthScreen = useWindowDimensions().width
 
 
 
@@ -87,88 +90,90 @@ export default function resetPage() {
   return (
     <SafeAreaProvider>
       <KeyBoardComponent>
-        <ImageBackground
-          source={require('@/assets/images/wallpaper2.jpeg')} // Ruta de la imagen
-          style={style.backgroundImage}
-          resizeMode="cover"
-        >
-          <SafeAreaView style={{ flex: 1 }}>
-            <View style={style.container}>
 
-              <View style={style.inputContainer}>
-                <TheTitle title='Nueva Contraseña' styles={{ fontSize: 34, color: colors.complementary, textAlign: 'center', marginBottom: 50 }} />
+        <SafeAreaView style={{ flex: 1 }}>
+          <GradientBackground text='Restablecer' />
+
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: widthScreen, padding: 20 }}>
 
 
 
 
+            <View style={{ position: 'relative', width: '100%' }}>
+              <TextInput
+                placeholder='Nueva Contraseña'
+                placeholderTextColor={'#95a5a6'}
 
+                keyboardType={'visible-password'}
+                secureTextEntry={!show}
+                style={style.inputContainer}
+                value={newPassword}
+                onChangeText={(text: string) => setNewPassword(text)}
 
+              />
 
-                <Subtitle text='Contraseña' style={{ color: colors.complementary }} />
-                <View style={{ position: 'relative' }}>
-                  <TextInput
+              <TouchableOpacity onPress={showPassword} style={{ position: 'absolute', right: 10, top: 25 }}>
+                {show ? <EyeOpenIcon /> : <EyeCloseIcon />}
 
-                    keyboardType={'visible-password'}
-                    secureTextEntry={!show}
-                    style={{
-                      borderWidth: 1, padding: 20,
-                      fontSize: 24,
-                      borderRadius: 10,
-                      borderColor: colors.complementary
-                    }}
-                    value={newPassword}
-                    onChangeText={(text: string) => setNewPassword(text)}
+              </TouchableOpacity>
+            </View>
 
-                  />
+            <Separator height={40} />
+            <View style={{ position: 'relative', width: '100%' }}>
+              <TextInput
+                placeholder='Confrmar Contraseña'
 
-                  <TouchableOpacity onPress={showPassword} style={{ position: 'absolute', right: 10, top: 25 }}>
-                    {show ? <EyeOpenIcon /> : <EyeCloseIcon />}
+                keyboardType={'visible-password'}
+                secureTextEntry={!showConfirmPassword}
 
-                  </TouchableOpacity>
+                style={style.inputContainer}
+                value={confirmPassword}
+                onChangeText={(text: string) => handlerPasswordConfirm(text)}
+
+              />
+
+              <TouchableOpacity onPress={showPassword2} style={{ position: 'absolute', right: 10, top: 25 }}>
+                {showConfirmPassword ? <EyeOpenIcon /> : <EyeCloseIcon />}
+
+              </TouchableOpacity>
+            </View>
+
+            <Separator height={40} />
+
+            {<Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
+
+            <LinearGradient colors={["rgba(0,212,255,1)", "rgba(9,113,121,1)"]} style={style.btnLogin}>
+              <TouchableOpacity onPress={resetPassword} style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ textAlign: 'center', fontWeight: '900', color: colors.background, }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Restablecer'}</Text>
+              </TouchableOpacity>
+            </LinearGradient>
+
+            <Separator height={40} />
+
+            <View style={style.containerRegister}>
+              <View>
+                <View>
+
+                  <Pressable onPress={() => router.navigate('/(public)/login')}>
+                    <Text style={style.textRegister}>Login</Text>
+                  </Pressable>
                 </View>
-
-                <Separator height={40} />
-                <Subtitle text='Confirmar Contraseña' style={{ color: colors.complementary }} />
-                <View style={{ position: 'relative' }}>
-                  <TextInput
-
-                    keyboardType={'visible-password'}
-                    secureTextEntry={!showConfirmPassword}
-                    style={{
-                      borderWidth: 1, padding: 20,
-                      fontSize: 24,
-                      borderRadius: 10,
-                      borderColor: colors.complementary
-                    }}
-                    value={confirmPassword}
-                    onChangeText={(text: string) => handlerPasswordConfirm(text)}
-
-                  />
-
-                  <TouchableOpacity onPress={showPassword2} style={{ position: 'absolute', right: 10, top: 25 }}>
-                    {showConfirmPassword ? <EyeOpenIcon /> : <EyeCloseIcon />}
-
-                  </TouchableOpacity>
-                </View>
-
-                <Separator height={40} />
-
-                {<Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
-                <TouchableOpacity onPress={resetPassword} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                  <Text style={{ textAlign: 'center', fontWeight: '900', color: colors.background, }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Restablecer'}</Text>
-                </TouchableOpacity>
-
-
 
 
               </View>
 
 
+
+
+
             </View>
-          </SafeAreaView>
-        </ImageBackground>
+
+          </View>
+
+
+        </SafeAreaView>
       </KeyBoardComponent>
-    </SafeAreaProvider>
+    </SafeAreaProvider >
   )
 
 
@@ -192,7 +197,36 @@ const style = StyleSheet.create({
     flex: 1,
   },
   inputContainer: {
-    width: '80%',
+    width: '100%',
+    padding: 20,
+    fontSize: 24,
+    borderRadius: 40,
+    borderWidth: 1,
+    borderColor: colors.complementary,
+    backgroundColor: colors.background,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 3, height: 5
+    },
+    shadowOpacity: 0.5,
+
+
+  },
+  btnLogin: {
+
+    borderRadius: 40,
+    padding: 25,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    shadowColor: 'black',
+    elevation: 10,
+    shadowOffset: {
+      width: 3, height: 5
+    },
+    shadowOpacity: 0.3
+
   },
   containerRegister: {
     width: '100%',
@@ -203,7 +237,10 @@ const style = StyleSheet.create({
     gap: 10,
   },
   textRegister: {
-    fontSize: 18,
-    color: colors.complementary
+    fontSize: 19,
+    textAlign: 'center',
+    color: colors.secundary,
+    textDecorationLine: 'underline'
+
   },
 })

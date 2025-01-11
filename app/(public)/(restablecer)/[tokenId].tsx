@@ -1,6 +1,6 @@
 import { useSignIn } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
-import { Text, TextInput, Button, View, StyleSheet, KeyboardAvoidingView, ImageBackground, SafeAreaView, TouchableOpacity, ActivityIndicator, Pressable } from 'react-native'
+import { Text, TextInput, Button, View, StyleSheet, KeyboardAvoidingView, ImageBackground, SafeAreaView, TouchableOpacity, ActivityIndicator, Pressable, useWindowDimensions } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import TheTitle from '@/components/TheTitle'
@@ -14,11 +14,14 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { EyeCloseIcon, EyeOpenIcon } from '@/components/Icons'
 import { KeyBoardComponent } from '@/components/KeyBoardComponent'
 import { useLocalSearchParams } from 'expo-router/build/hooks'
+import GradientBackground from '@/components/GradientBackground'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function RestablecerPage() {
   const [codigo, setCodigo] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>('')
+  const widthScreen = useWindowDimensions().width
 
   const params = useLocalSearchParams()
   const router = useRouter()
@@ -48,65 +51,60 @@ export default function RestablecerPage() {
   return (
     <SafeAreaProvider>
       <KeyBoardComponent>
-        <ImageBackground
-          source={require('@/assets/images/wallpaper2.jpeg')} // Ruta de la imagen
-          style={style.backgroundImage}
-          resizeMode="cover"
-        >
-          <SafeAreaView style={{ flex: 1 }}>
+
+        <SafeAreaView style={{ flex: 1 }}>
+
+
+          <GradientBackground text='Restablecer' />
+
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: widthScreen, padding: 20 }}>
+
+
+            <Subtitle text='Escribe el código que se le envió a su correo:' style={{ color: colors.complementary }} />
+
+            <TextInput
+              style={style.inputContainer}
+              keyboardType='numeric'
+              value={codigo}
+              onChangeText={(text: string) => setCodigo(text)} />
+
+
+            <Separator />
+
+            {error && <Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
+            <LinearGradient colors={["rgba(0,212,255,1)", "rgba(9,113,121,1)"]} style={style.btnLogin}>
+              <TouchableOpacity onPress={sendCodigo} style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ textAlign: 'center', color: colors.background, fontWeight: 700 }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Enviar'}</Text>
+
+              </TouchableOpacity>
+            </LinearGradient>
 
 
 
 
-            <View style={style.container} >
+            <Separator height={30} />
 
+            <View style={style.containerRegister}>
+              <View>
+                <View>
 
-              <View style={{ width: '90%' }}>
-
-                <Subtitle text='Escribe el código que se le envió a su correo:' style={{ color: colors.complementary }} />
-
-                <TextInput
-                  style={style.inputContainer}
-                  keyboardType='numeric'
-                  value={codigo}
-                  onChangeText={(text: string) => setCodigo(text)} />
-
-
-                <Separator />
-
-                {error && <Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
-
-                <TouchableOpacity onPress={sendCodigo} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                  <Text style={{ textAlign: 'center', color: colors.background, fontWeight: 700 }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Enviar'}</Text>
-                </TouchableOpacity>
-
-
-
-                <Separator height={30} />
-
-                <View style={style.containerRegister}>
-                  <View>
-                    <View>
-
-                      <Pressable onPress={() => router.navigate('/(public)/login')}>
-                        <Text style={style.textRegister}>Login</Text>
-                      </Pressable>
-                    </View>
-
-
-                  </View>
-
-
-
-
-
+                  <Pressable onPress={() => router.navigate('/(public)/login')}>
+                    <Text style={style.textRegister}>Login</Text>
+                  </Pressable>
                 </View>
+
+
               </View>
 
 
+
+
+
             </View>
-          </SafeAreaView>
-        </ImageBackground>
+          </View>
+
+
+        </SafeAreaView>
       </KeyBoardComponent>
     </SafeAreaProvider>
   )
@@ -145,12 +143,35 @@ const style = StyleSheet.create({
 
 
   inputContainer: {
+    width: '100%',
     padding: 20,
     fontSize: 24,
-    borderRadius: 10,
+    borderRadius: 40,
     borderWidth: 1,
-    borderColor: colors.complementary
+    borderColor: colors.complementary,
+    backgroundColor: colors.background,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 3, height: 5
+    },
+    shadowOpacity: 0.5
 
-  }
+  },
+  btnLogin: {
+
+    borderRadius: 40,
+    padding: 25,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    shadowColor: 'black',
+    elevation: 10,
+    shadowOffset: {
+      width: 3, height: 5
+    },
+    shadowOpacity: 0.3
+
+  },
 
 })

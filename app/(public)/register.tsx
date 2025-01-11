@@ -11,6 +11,8 @@ import axios from 'axios'
 import { authStore } from '@/store/auth.store'
 import { EyeCloseIcon, EyeOpenIcon } from '@/components/Icons'
 import { KeyBoardComponent } from '@/components/KeyBoardComponent'
+import GradientBackground from '@/components/GradientBackground'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function SignUpScreen() {
   const router = useRouter()
@@ -57,98 +59,84 @@ export default function SignUpScreen() {
   return (
     <SafeAreaProvider>
       <KeyBoardComponent>
-        <ImageBackground
-          source={require('@/assets/images/wallpaper2.jpeg')} // Ruta de la imagen
-          style={style.backgroundImage}
-          resizeMode="cover"
-        >
-          <SafeAreaView style={{ flex: 1 }}>
 
-            <View style={style.container}>
-              <TheTitle title='Registrarse' styles={{ fontSize: 34, color: colors.complementary, textAlign: 'center' }} />
-
-              <View style={{ width: widthScreen - 100 }}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <GradientBackground text='Registrarse' />
 
 
-                {loading && <ActivityIndicator size={'large'} color={colors.complementary} />}
-
-
-                <Subtitle text='Nombre' style={{ color: colors.complementary }} />
-
-                <InputCustom
-
-                  type='default'
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: widthScreen, padding: 20 }}>
+            <TextInput
+              style={style.inputContainer}
+              placeholder='Nombre'
+              placeholderTextColor={'#95a5a6'}
+              keyboardType='default'
+              value={user.name}
+              onChangeText={(text: string) => setUser({ ...user, name: text })} />
 
 
 
-                  value={user.name}
-                  onChange={(text: string) => setUser({ ...user, name: text })} />
 
-
-                <Separator />
-                <Subtitle text='Correo' style={{ color: colors.complementary }} />
-
-                <InputCustom
-
-                  type='email-address'
-
-
-
-                  value={user.email}
-                  onChange={(text: string) => setUser({ ...user, email: text })} />
-
-
-                <Separator />
-
-                <Subtitle text='Contraseña' style={{ color: colors.complementary }} />
-                <View style={{ position: 'relative' }}>
-                  <TextInput
-
-                    keyboardType={'visible-password'}
-                    secureTextEntry={!show}
-                    style={{
-                      borderWidth: 1, padding: 20,
-                      fontSize: 24,
-                      borderRadius: 10,
-                      borderColor: colors.complementary
-                    }}
-                    value={user.password}
-                    onChangeText={(text: string) => setUser({ ...user, password: text })}
-
-                  />
-
-                  <TouchableOpacity onPress={showPassword} style={{ position: 'absolute', right: 10, top: 25 }}>
-                    {show ? <EyeOpenIcon /> : <EyeCloseIcon />}
-
-                  </TouchableOpacity>
-                </View>
-
-                <Separator height={40} />
-
-                {<Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
-                <TouchableOpacity onPress={register} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                  <Text style={{ textAlign: 'center', fontWeight: '900', color: colors.background, }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Registrarse'}</Text>
-                </TouchableOpacity>
-
-
-                <Separator height={50} />
-
-                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 4 }}>
-
-                  <Text style={style.txt}>Ya tienes una cuenta?</Text>
+            <Separator />
+            <TextInput
+              autoComplete='email'
+              style={style.inputContainer}
+              placeholder='Correo'
+              placeholderTextColor={'#95a5a6'}
+              keyboardType='email-address'
+              value={user.email}
+              onChangeText={(text: string) => setUser({ ...user, email: text })} />
 
 
 
-                  <Pressable onPress={() => router.navigate('/(public)/login')}>
-                    <Text style={style.textRegister}>Login</Text>
-                  </Pressable>
 
-                </View>
-              </View>
+            <Separator />
+
+            <View style={{ width: '100%', position: 'relative' }}>
+              <TextInput
+                placeholder='Contraseña'
+                placeholderTextColor={'#95a5a6'}
+                keyboardType={'visible-password'}
+                secureTextEntry={!show}
+                style={style.inputContainer}
+                value={user.password}
+                onChangeText={(text: string) => setUser({ ...user, password: text })}
+
+              />
+
+              <TouchableOpacity onPress={showPassword} style={{ position: 'absolute', right: 10, top: 25 }}>
+                {show ? <EyeOpenIcon /> : <EyeCloseIcon />}
+
+              </TouchableOpacity>
+            </View>
+
+            <Separator height={40} />
+
+            {<Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
+
+
+            <LinearGradient colors={["rgba(0,212,255,1)", "rgba(9,113,121,1)"]} style={style.btnLogin}>
+              <TouchableOpacity onPress={register} style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ textAlign: 'center', color: colors.background, fontWeight: 700 }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Registrarse'}</Text>
+
+              </TouchableOpacity>
+            </LinearGradient>
+
+
+            <Separator height={50} />
+
+            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 4 }}>
+
+              <Text style={style.txt}>Ya tienes una cuenta?</Text>
+
+
+
+              <Pressable onPress={() => router.navigate('/(public)/login')}>
+                <Text style={style.textRegister}>Login</Text>
+              </Pressable>
 
             </View>
-          </SafeAreaView>
-        </ImageBackground>
+          </View>
+        </SafeAreaView>
       </KeyBoardComponent>
     </SafeAreaProvider >
   )
@@ -175,6 +163,18 @@ const style = StyleSheet.create({
   },
   inputContainer: {
     width: '100%',
+    padding: 20,
+    fontSize: 24,
+    borderRadius: 40,
+    borderWidth: 1,
+    borderColor: colors.complementary,
+    backgroundColor: colors.background,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 3, height: 5
+    },
+    shadowOpacity: 0.5
+
   },
   containerRegister: {
     width: '100%',
@@ -189,5 +189,20 @@ const style = StyleSheet.create({
     fontSize: 18,
     color: colors.secundary,
     textDecorationLine: 'underline'
+  }, btnLogin: {
+
+    borderRadius: 40,
+    padding: 25,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    shadowColor: 'black',
+    elevation: 10,
+    shadowOffset: {
+      width: 3, height: 5
+    },
+    shadowOpacity: 0.3
+
   },
 })
