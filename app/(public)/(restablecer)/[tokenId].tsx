@@ -1,6 +1,6 @@
 import { useSignIn } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
-import { Text, TextInput, Button, View, StyleSheet, KeyboardAvoidingView, ImageBackground, SafeAreaView, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { Text, TextInput, Button, View, StyleSheet, KeyboardAvoidingView, ImageBackground, SafeAreaView, TouchableOpacity, ActivityIndicator, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import TheTitle from '@/components/TheTitle'
@@ -17,6 +17,8 @@ import { useLocalSearchParams } from 'expo-router/build/hooks'
 
 export default function RestablecerPage() {
   const [codigo, setCodigo] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string>('')
 
   const params = useLocalSearchParams()
   const router = useRouter()
@@ -25,15 +27,19 @@ export default function RestablecerPage() {
 
   const sendCodigo = async () => {
     try {
-      const res = await axios.post(`https://food-apiv1.vercel.app/verify-code`, { codigo, token: tokenId })
+      setLoading(true)
+      const res = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/verify-code`, { codigo, token: tokenId })
 
-      console.log(res.data)
 
       if (res.data.status == 200) {
         router.replace(`/(resetPassword)/${tokenId}`)
+        setLoading(false)
+
       }
     } catch (error) {
-
+      setError(error?.message)
+    } finally {
+      setLoading(false)
     }
 
   }
@@ -56,7 +62,7 @@ export default function RestablecerPage() {
 
               <View style={{ width: '90%' }}>
 
-                <Subtitle text='Codigo' style={{ color: colors.complementary }} />
+                <Subtitle text='Escribe el código que se le envió a su correo:' style={{ color: colors.complementary }} />
 
                 <TextInput
                   style={style.inputContainer}
@@ -67,22 +73,23 @@ export default function RestablecerPage() {
 
                 <Separator />
 
+                {error && <Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
 
                 <TouchableOpacity onPress={sendCodigo} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                  <Text style={{ textAlign: 'center' }}>Enviar</Text>
+                  <Text style={{ textAlign: 'center', color: colors.background, fontWeight: 700 }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Enviar'}</Text>
                 </TouchableOpacity>
 
 
 
-                <Separator height={10} />
+                <Separator height={30} />
 
                 <View style={style.containerRegister}>
                   <View>
                     <View>
 
-                      <Link style={{ width: 'auto' }} href='/(public)/login'>
+                      <Pressable onPress={() => router.navigate('/(public)/login')}>
                         <Text style={style.textRegister}>Login</Text>
-                      </Link>
+                      </Pressable>
                     </View>
 
 
@@ -128,8 +135,10 @@ const style = StyleSheet.create({
 
   },
   textRegister: {
-    fontSize: 18,
-    color: colors.complementary,
+    fontSize: 19,
+    textAlign: 'center',
+    color: colors.secundary,
+    textDecorationLine: 'underline'
 
   },
 

@@ -32,7 +32,7 @@ export default function SignUpScreen() {
     try {
 
       setLoading(true)
-      const response = await axios.post('https://food-apiv1.vercel.app/register', user)
+      const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/register`, user)
 
       if (response.status == 201) {
         router.replace('/(public)/login')
@@ -127,7 +127,7 @@ export default function SignUpScreen() {
 
                 {<Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
                 <TouchableOpacity onPress={register} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                  <Text style={{ textAlign: 'center', fontWeight: '900', color: colors.background, }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Iniciar Sesion'}</Text>
+                  <Text style={{ textAlign: 'center', fontWeight: '900', color: colors.background, }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Registrarse'}</Text>
                 </TouchableOpacity>
 
 

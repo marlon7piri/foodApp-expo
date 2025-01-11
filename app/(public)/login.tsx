@@ -33,11 +33,12 @@ export default function Page() {
 
 
   const loginhandler = async () => {
+
     try {
 
 
       setLoading(true)
-      const response = await axios.post('https://food-apiv1.vercel.app/login', user)
+      const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/login`, user)
       const { token, usuario } = response.data
 
       if (response.status == 200) {
@@ -122,7 +123,7 @@ export default function Page() {
                 <Separator height={40} />
                 {error && <Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
                 <TouchableOpacity onPress={loginhandler} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                  <Text style={{ textAlign: 'center' }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Iniciar Sesion'}</Text>
+                  <Text style={{ textAlign: 'center', color: colors.background, fontWeight: 700 }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Iniciar Sesion'}</Text>
                 </TouchableOpacity>
 
 

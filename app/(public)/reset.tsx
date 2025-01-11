@@ -9,28 +9,36 @@ import { colors } from '@/theme/theme'
 import axios from 'axios'
 
 import { KeyBoardComponent } from '@/components/KeyBoardComponent'
+import { sendMessage } from '@/components/ToastCustom'
 
 export default function ResetPage() {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState<boolean>(false)
+
   const router = useRouter()
 
 
   const sendEmail = async () => {
     try {
 
-
-      const res = await axios.post(`https://food-apiv1.vercel.app/reset`, { email })
+      setLoading(true)
+      const res = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/reset`, { email })
 
       console.log(res.data)
 
       if (res.data.status == 200) {
         router.replace(`/(restablecer)/${res.data.token}`)
+        sendMessage('Correo', 'Se le envió un codigo a su correo.', 'success', 2000)
+
       } else {
         setError(res.data.message)
       }
     } catch (error) {
-      console.log(error)
+      setError(error?.message)
+
+    } finally {
+      setLoading(false)
 
     }
   }
@@ -69,9 +77,11 @@ export default function ResetPage() {
 
 
 
-                <Separator height={40} />
+                <Separator height={20} />
+                {<Text style={{ color: colors.dangerColor, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>{error}</Text>}
+
                 <TouchableOpacity onPress={sendEmail} style={{ backgroundColor: colors.secundary, borderRadius: 10, padding: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                  <Text style={{ textAlign: 'center', color: colors.background, fontWeight: 700 }}>Enviar correo</Text>
+                  <Text style={{ textAlign: 'center', color: colors.background, fontWeight: 700 }}>{loading ? <ActivityIndicator color={colors.background} /> : 'Enviar correo'}</Text>
                 </TouchableOpacity>
 
 

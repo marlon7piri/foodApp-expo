@@ -11,6 +11,7 @@ import axios from 'axios'
 import { authStore } from '@/store/auth.store'
 import { EyeCloseIcon, EyeOpenIcon } from '@/components/Icons'
 import { KeyBoardComponent } from '@/components/KeyBoardComponent'
+import { sendMessage } from '@/components/ToastCustom'
 
 export default function resetPage() {
   const router = useRouter()
@@ -25,26 +26,26 @@ export default function resetPage() {
 
 
 
-  console.log(tokenId)
 
   const resetPassword = async () => {
     try {
 
       setLoading(true)
-      const response = await axios.post('https://food-apiv1.vercel.app/reset-password', { newPassword, token: tokenId })
+      const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/reset-password`, { newPassword, token: tokenId })
 
 
 
       if (response.status == 200) {
         router.replace('/(public)/login')
+        sendMessage('Exito', 'Contraseña restablecida', 'success', 2000)
 
       }
       setLoading(false)
 
 
     } catch (error) {
-      console.log(error)
       setError(error.message)
+
 
 
     } finally {
@@ -67,16 +68,39 @@ export default function resetPage() {
             <View style={style.container}>
 
               <View style={style.inputContainer}>
-                <TheTitle title='Registrarse' styles={{ fontSize: 34, color: colors.complementary, textAlign: 'center' }} />
+                <TheTitle title='Nueva Contraseña' styles={{ fontSize: 34, color: colors.complementary, textAlign: 'center', marginBottom: 50 }} />
 
 
-                {loading && <ActivityIndicator size={'large'} color={colors.complementary} />}
 
 
 
 
 
                 <Subtitle text='Contraseña' style={{ color: colors.complementary }} />
+                <View style={{ position: 'relative' }}>
+                  <TextInput
+
+                    keyboardType={'visible-password'}
+                    secureTextEntry={!show}
+                    style={{
+                      borderWidth: 1, padding: 20,
+                      fontSize: 24,
+                      borderRadius: 10,
+                      borderColor: colors.complementary
+                    }}
+                    value={newPassword}
+                    onChangeText={(text: string) => setNewPassword(text)}
+
+                  />
+
+                  <TouchableOpacity onPress={showPassword} style={{ position: 'absolute', right: 10, top: 25 }}>
+                    {show ? <EyeOpenIcon /> : <EyeCloseIcon />}
+
+                  </TouchableOpacity>
+                </View>
+
+                <Separator height={40} />
+                <Subtitle text='Confirmar Contraseña' style={{ color: colors.complementary }} />
                 <View style={{ position: 'relative' }}>
                   <TextInput
 
