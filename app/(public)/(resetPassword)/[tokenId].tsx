@@ -17,10 +17,12 @@ export default function resetPage() {
   const router = useRouter()
   const [loading, setLoading] = useState<boolean>(false)
   const [show, setShow] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [error, setError] = useState<string>('')
 
 
   const [newPassword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const params = useLocalSearchParams()
   const { tokenId } = params
 
@@ -28,8 +30,14 @@ export default function resetPage() {
 
 
   const resetPassword = async () => {
+
+
     try {
 
+      if (newPassword !== confirmPassword) {
+        setError('Las contraseñas no coinciden')
+        return
+      }
       setLoading(true)
       const response = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/reset-password`, { newPassword, token: tokenId })
 
@@ -54,6 +62,26 @@ export default function resetPage() {
   }
   const showPassword = () => {
     setShow(!show)
+  }
+  const showPassword2 = () => {
+
+
+    setShowConfirmPassword(!showConfirmPassword)
+  }
+
+  const handlerPasswordConfirm = (text: string) => {
+    setConfirmPassword(text)
+
+
+    if (text !== newPassword) {
+      setError('Las contraseñas no coinciden')
+    } else {
+      setError('')
+
+    }
+
+
+
   }
 
   return (
@@ -105,20 +133,20 @@ export default function resetPage() {
                   <TextInput
 
                     keyboardType={'visible-password'}
-                    secureTextEntry={!show}
+                    secureTextEntry={!showConfirmPassword}
                     style={{
                       borderWidth: 1, padding: 20,
                       fontSize: 24,
                       borderRadius: 10,
                       borderColor: colors.complementary
                     }}
-                    value={newPassword}
-                    onChangeText={(text: string) => setNewPassword(text)}
+                    value={confirmPassword}
+                    onChangeText={(text: string) => handlerPasswordConfirm(text)}
 
                   />
 
-                  <TouchableOpacity onPress={showPassword} style={{ position: 'absolute', right: 10, top: 25 }}>
-                    {show ? <EyeOpenIcon /> : <EyeCloseIcon />}
+                  <TouchableOpacity onPress={showPassword2} style={{ position: 'absolute', right: 10, top: 25 }}>
+                    {showConfirmPassword ? <EyeOpenIcon /> : <EyeCloseIcon />}
 
                   </TouchableOpacity>
                 </View>
