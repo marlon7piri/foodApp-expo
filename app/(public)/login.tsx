@@ -1,6 +1,6 @@
 import { useSignIn } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
-import { Text, TextInput, Button, View, StyleSheet, KeyboardAvoidingView, ImageBackground, SafeAreaView, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { Text, TextInput, Button, View, StyleSheet, KeyboardAvoidingView, ImageBackground, SafeAreaView, TouchableOpacity, ActivityIndicator, useWindowDimensions, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import TheTitle from '@/components/TheTitle'
@@ -17,7 +17,7 @@ import { KeyBoardComponent } from '@/components/KeyBoardComponent'
 export default function Page() {
 
   const router = useRouter()
-
+  const widthScreen = useWindowDimensions().width
 
 
 
@@ -85,7 +85,7 @@ export default function Page() {
             <View style={style.container} >
 
 
-              <View >
+              <View style={{ width: widthScreen - 100 }}>
                 <TheTitle title='Login' styles={{ fontSize: 34, color: colors.complementary, textAlign: 'center', }} />
 
                 <Subtitle text='Correo' style={{ color: colors.complementary }} />
@@ -127,16 +127,27 @@ export default function Page() {
 
 
 
-                <Separator height={10} />
+                <Separator height={50} />
 
                 <View style={style.containerRegister}>
-                  <View>
-                    <Text style={style.textRegister}>Ya tienes una cuenta?</Text>
+
+                  <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 4 }}>
+                    <Text style={style.txt}>Ya tienes una cuenta?</Text>
+
+                    <Pressable onPress={() => router.navigate('/(public)/register')}>
+                      <Text style={style.textRegister}>Registrarse</Text>
+                    </Pressable>
+
                   </View>
 
-                  <Link style={{ width: 'auto' }} href='/(public)/register'>
-                    <Text style={style.textRegister}>Registrarse</Text>
+
+
+
+                  <Link style={style.textRegister} href='/(public)/reset'>
+                    <Text >Olvide mi contraseña.</Text>
                   </Link>
+
+
 
                 </View>
               </View>
@@ -156,6 +167,7 @@ const style = StyleSheet.create({
 
 
   container: {
+    width: '100%',
     flex: 1,
     display: 'flex',
     padding: 10,
@@ -170,16 +182,21 @@ const style = StyleSheet.create({
 
 
   containerRegister: {
-    width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
-    gap: 10,
+    gap: 20,
+  },
+
+  txt: {
+    fontSize: 18,
+
   },
   textRegister: {
     fontSize: 18,
-    color: colors.complementary
+    color: colors.secundary,
+    textDecorationLine: 'underline'
   },
 
 

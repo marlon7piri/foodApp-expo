@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider, NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { router, Slot, Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -33,11 +33,18 @@ const InitialLayout = () => {
     }
   }, [token])
 
-  return <Stack screenOptions={{ headerShown: false }} >
-    <Stack.Screen name='(contacto)' options={{ headerShown: true, headerTitle: 'Contactos', headerBackTitle: 'Atras' }} />
-    <Stack.Screen name='(category)' options={{ headerShown: true, headerTitle: 'Categoria', headerBackTitle: 'Atras' }} />
-    <Stack.Screen name='(receta)' options={{ headerShown: true, headerTitle: 'Receta', headerBackTitle: 'Atras', }} />
-  </Stack>
+
+
+
+
+  return (
+
+    <Stack screenOptions={{ headerShown: false }}  >
+      <Stack.Screen name='(contacto)' options={{ headerShown: true, headerTitle: 'Contactos', headerBackTitle: 'Atras' }} />
+      <Stack.Screen name='(category)' options={{ headerShown: true, headerTitle: 'Categoria', headerBackTitle: 'Atras' }} />
+      <Stack.Screen name='(receta)' options={{ headerShown: true, headerTitle: 'Receta', headerBackTitle: 'Atras', }} />
+    </Stack>
+  )
 }
 
 
@@ -68,7 +75,6 @@ export default function RootLayout() {
 
 
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-
       <InitialLayout />
 
 
