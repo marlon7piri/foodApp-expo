@@ -64,6 +64,7 @@ export default function RestablecerPage() {
 
             <TextInput
               style={style.inputContainer}
+
               keyboardType='numeric'
               value={codigo}
               onChangeText={(text: string) => setCodigo(text)} />
@@ -145,9 +146,11 @@ const style = StyleSheet.create({
   inputContainer: {
     width: '100%',
     padding: 20,
-    fontSize: 24,
+    fontSize: 34,
+    textAlign: 'center',
     borderRadius: 40,
     borderWidth: 1,
+    letterSpacing: 10,
     borderColor: colors.complementary,
     backgroundColor: colors.background,
     shadowColor: 'black',

@@ -40,7 +40,6 @@ const InitialLayout = () => {
   return (
 
     <Stack screenOptions={{ headerShown: false }}  >
-      <Stack.Screen name='(contacto)' options={{ headerShown: true, headerTitle: 'Contactos', headerBackTitle: 'Atras' }} />
       <Stack.Screen name='(category)' options={{ headerShown: true, headerTitle: 'Categoria', headerBackTitle: 'Atras' }} />
       <Stack.Screen name='(receta)' options={{ headerShown: true, headerTitle: 'Receta', headerBackTitle: 'Atras', }} />
     </Stack>

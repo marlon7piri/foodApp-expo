@@ -37,6 +37,18 @@ export default function Layout() {
 
 
         /> <Drawer.Screen
+          name="(contacto)" // This is the name of the page and must match the url from root
+          options={{
+            drawerLabel: 'Contacto',
+            title: 'Contacto',
+            drawerIcon: ({ size, color }) => (
+              <Ionicons name='person-add-outline' size={size} color={color} />
+            )
+
+          }}
+
+
+        />  <Drawer.Screen
           name="(menu)" // This is the name of the page and must match the url from root
           options={{
             drawerLabel: 'Menu',

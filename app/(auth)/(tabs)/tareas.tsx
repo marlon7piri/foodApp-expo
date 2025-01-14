@@ -20,6 +20,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 const Tareas = () => {
 
   const { tareas, loadTareas } = useTareas()
+  const { loadContactos } = useContacto()
   const { top } = useSafeAreaInsets()
   const [isrefreshing, setIsrefreshing] = useState(false)
   const openModalTarea = useModalStore(state => state.openModalTarea)
@@ -30,6 +31,7 @@ const Tareas = () => {
     setIsrefreshing(true)
     setTimeout(() => {
       loadTareas()
+      loadContactos()
       setIsrefreshing(false)
     }, 2000)
   }
@@ -42,12 +44,16 @@ const Tareas = () => {
       <ScrollView>
         <  RefreshControl refreshing={isrefreshing} onRefresh={onRefresh} progressViewOffset={top} colors={['red']} />
 
+
+        <View>
+          <Text style={{ fontWeight: '300', textAlign: 'center' }}>Deslice hacia abajo para recargar tareas y contactos</Text>
+        </View>
         <ThemedView style={styles.titleContainer}>
           <ThemedText style={{ fontWeight: '900', fontSize: 38, padding: 10, textAlign: 'center' }} type="title">Tareas</ThemedText>
 
 
 
-          <Button text='Contactos' onPress={() => navigation.navigate('(contacto)')} />
+
           <Button text='Crear' onPress={openModalTarea} />
 
         </ThemedView>
