@@ -1,7 +1,7 @@
 export interface Tareas {
   _id?: string;
   de?: De | null;
-  para: string;
+  para: Para | null;
   asunto: string;
   descripcion: string;
   estado: string;
@@ -11,6 +11,15 @@ export interface Tareas {
 }
 
 export interface De {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+}
+export interface Para {
   _id: string;
   name: string;
   email: string;

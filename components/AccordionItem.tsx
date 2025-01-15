@@ -40,6 +40,7 @@ const Accordion = ({ title, children, item }: Props) => {
     moveUp(20)
   }, [animatedOpacity, animationTranslate])
 
+
   return (
     <Animated.View
       style={[styles.cardItem, { opacity: animatedOpacity, transform: [{ translateY: animationTranslate }] }]}>
@@ -79,6 +80,8 @@ const Accordion = ({ title, children, item }: Props) => {
             <PersonIcon />
 
             <Text style={styles.textos}>{item.de?.name}</Text>
+            <Text>Para:</Text>
+            <Text style={styles.textos}>{item.para?.name}</Text>
 
           </View>
 
