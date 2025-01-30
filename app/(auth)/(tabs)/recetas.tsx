@@ -11,7 +11,7 @@ import CustomFlatListRecipes from '@/components/CustomFlatListRecipes';
 import Button from '@/components/Button';
 import { useModalStore } from '@/store/modal-store';
 import { ModalCategory } from '@/components/ModalCategory';
-import { ModalReceta } from '@/components/ModalReceta';
+import { ModalReceta } from '@/components/modales/recetas/ModalReceta';
 import { useEffect } from 'react';
 import { useProducto } from '@/hooks/productos/useProducto';
 import CustomView from '@/components/CustomView';

@@ -22,7 +22,6 @@ export const useReceta = () => {
   const closeModalCreateRecipes = useModalStore(
     (state) => state.closeModalCreateRecipes
   );
-  const router = useRouter();
 
   const [receta, setReceta] = useState<Receta>({
     nombre: "",
@@ -66,27 +65,17 @@ export const useReceta = () => {
       closeModalCreateRecipes();
 
       sendMessage("Receta", "Creada con éxito", "success");
-
-      setLoading(false);
     } catch (error) {
     } finally {
       setLoading(false);
     }
   };
 
-  const disminuirCantidad = (id: string) => {
+  const aumentarCantidad = (id: string, text: any) => {
     const res = productoSelected.map((ele) => {
-      if (ele.cantidad == 0) {
-        return { ...ele, cantidad: 0 };
-      }
-      return ele.id === id ? { ...ele, cantidad: ele.cantidad - 1 } : ele;
+      return ele.id === id ? { ...ele, cantidad: parseFloat(text) } : ele;
     });
-    setProductoSelected(res);
-  };
-  const aumentarCantidad = (id: string) => {
-    const res = productoSelected.map((ele) => {
-      return ele.id === id ? { ...ele, cantidad: ele.cantidad + 1 } : ele;
-    });
+
     setProductoSelected(res);
   };
 
@@ -98,7 +87,7 @@ export const useReceta = () => {
     crearReceta,
     setReceta,
     receta,
-    disminuirCantidad,
+
     aumentarCantidad,
     isAgregate,
     loadReceta,
