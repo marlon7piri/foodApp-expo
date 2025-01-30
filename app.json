@@ -13,6 +13,8 @@
       "bundleIdentifier": "com.marlon7piri.foodappexpo"
     },
     "android": {
+      "package": "com.marlon7piri.foodappexpo",
+
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
