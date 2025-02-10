@@ -28,7 +28,7 @@ const InitialLayout = () => {
     if (!token) {
       router.replace('/login')
     } else {
-      router.replace('/(auth)/inventory')
+      router.replace('/(auth)/')
 
     }
   }, [token])

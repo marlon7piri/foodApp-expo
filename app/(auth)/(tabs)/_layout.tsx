@@ -8,13 +8,11 @@ import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Ionicons } from '@expo/vector-icons';
-import { BackIcon, LogoutIcon, MenuIcon } from '@/components/Icons';
-import { authStore } from '@/store/auth.store';
-import { DrawerToggleButton } from '@react-navigation/drawer';
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const logout = authStore(state => state.logout)
+
 
   return (
 
