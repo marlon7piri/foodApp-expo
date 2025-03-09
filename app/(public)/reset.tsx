@@ -28,7 +28,6 @@ export default function ResetPage() {
       setLoading(true)
       const res = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/reset`, { email })
 
-      console.log(res.data)
 
       if (res.data.status == 200) {
         router.replace(`/(restablecer)/${res.data.token}`)

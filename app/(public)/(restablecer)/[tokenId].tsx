@@ -32,7 +32,6 @@ export default function RestablecerPage() {
     try {
       setLoading(true)
       const res = await axios.post(`${process.env.EXPO_PUBLIC_API_URL}/verify-code`, { codigo, token: tokenId })
-      console.log(res.data)
 
       if (res.data.status == 200) {
         router.replace(`/(resetPassword)/${tokenId}`)
