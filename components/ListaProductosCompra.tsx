@@ -8,37 +8,31 @@ import { Producto } from '@/config/infrastructure/entities/compras'
 interface Props {
   item: Producto[];
   total: number;
-  setProductosCompra: () => React.Dispatch<SetStateAction<Producto>>
+  setProductosCompra: () => React.Dispatch<SetStateAction<Producto[]>>
 }
 const ListaProductosCompra = ({ item, total, setProductosCompra }: Props) => {
 
 
   const aumentarCantidad = (id: string) => {
-    setProductosCompra((prev) =>
-      prev.map((producto) =>
-        producto._id === id
-          ? { ...producto, cantidad: Math.max(0, producto.cantidad + 1) }
-          : producto
-      )
-    );
+    setProductosCompra((prev) => prev.map((producto) => producto._id === id ? { ...producto, cantidad: producto.cantidad + 1 } : producto));
 
   }
 
   const disminuirCantidad = (id: string) => {
-    setProductosCompra((prev: any[]) =>
-
-      prev.map((producto) => {
+    setProductosCompra((prev) => prev.map((producto) => {
 
 
-        if (producto._id === id) {
-          if (producto.cantidad == 0) {
-            return { ...producto, cantidad: 0 }
-          } else {
-            return { ...producto, cantidad: producto.cantidad - 1 }
-          }
+      if (producto._id === id) {
+        if (producto.cantidad == 0) {
+          return { ...producto, cantidad: 0 }
+        } else {
+          return { ...producto, cantidad: producto.cantidad - 1 }
         }
 
-      })
+      }
+      return producto
+
+    })
     );
 
   }

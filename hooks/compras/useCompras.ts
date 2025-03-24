@@ -19,6 +19,7 @@ export const useCompras = () => {
   const [dateSelected, setDateSelected] = useState("");
   const [compraById, setCompraById] = useState<Compras>();
   const [productosCompra, setProductosCompra] = useState<Producto[]>([]);
+  
   const obtenerCompras = comprasStore((state) => state.obtenerCompras);
   const crearCompras = comprasStore((state) => state.crearCompras);
   const compras = comprasStore((state) => state.compras);

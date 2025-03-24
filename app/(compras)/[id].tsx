@@ -1,16 +1,11 @@
-import { View, Text, FlatList, ScrollView, StyleSheet, Pressable, ActivityIndicator } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { RouteProp, useRoute } from '@react-navigation/native'
+import { View, StyleSheet, ActivityIndicator } from 'react-native'
+import React, { useEffect } from 'react'
 import CustomView from '@/components/CustomView'
 import Subtitle from '@/components/Subtitle'
 import { colors } from '@/theme/theme'
 import { Link, Stack, useLocalSearchParams } from 'expo-router'
-import { AddCircle, BackIcon, RemoveCircle, UsdIcon } from '@/components/Icons'
 import { useCompras } from '@/hooks/compras/useCompras'
-import { Producto } from '@/config/infrastructure/entities/compras'
 import ListaProductosCompra from '@/components/ListaProductosCompra'
-import { comprasStore } from '@/store/compras.store'
-import { BackButton } from '@/components/BackButton'
 
 
 
@@ -36,11 +31,11 @@ export default function DetailsListaCompras() {
     );
   }
 
-  const total = productosCompra?.reduce((acc, obj) => {
+  const total = Array.isArray(productosCompra) ? productosCompra?.reduce((acc, obj) => {
     acc += obj.precio_compra * obj.cantidad
 
     return acc
-  }, 0)
+  }, 0) : 0
 
 
 
@@ -58,7 +53,10 @@ export default function DetailsListaCompras() {
 
 
 
-        <ListaProductosCompra item={productosCompra} total={total} setProductosCompra={setProductosCompra} />
+        <ListaProductosCompra
+          item={productosCompra}
+          total={total}
+          setProductosCompra={setProductosCompra} />
 
 
 
